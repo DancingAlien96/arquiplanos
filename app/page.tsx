@@ -85,6 +85,7 @@ export default function Home() {
                   src="/personalizados.jpg"
                   alt="Planos Personalizados"
                   fill
+                  sizes="100vw"
                   className="object-cover transition duration-500 hover:scale-105"
                 />
               </div>
@@ -109,6 +110,7 @@ export default function Home() {
                   src="/planoslistos.png"
                   alt="Planos Listos"
                   fill
+                  sizes="100vw"
                   className="object-cover transition duration-500 hover:scale-105"
                 />
               </div>
@@ -133,6 +135,7 @@ export default function Home() {
                   src="/asesoria3d.jpg"
                   alt="Asesoría 3D"
                   fill
+                  sizes="100vw"
                   className="object-cover transition duration-500 hover:scale-105"
                 />
               </div>
@@ -196,6 +199,7 @@ export default function Home() {
                 src="/fondo1.png"
                 alt="Casa Moderna Minimalista"
                 fill
+                sizes="100vw"
                 className="object-cover transition duration-500 hover:scale-105"
               />
             </div>
@@ -230,6 +234,7 @@ export default function Home() {
                 src="/personalizados.jpg"
                 alt="Villa Mediterránea"
                 fill
+                sizes="100vw"
                 className="object-cover transition duration-500 hover:scale-105"
               />
             </div>
@@ -264,6 +269,7 @@ export default function Home() {
                 src="/planoslistos.png"
                 alt="Loft Industrial"
                 fill
+                sizes="100vw"
                 className="object-cover transition duration-500 hover:scale-105"
               />
             </div>
@@ -298,6 +304,7 @@ export default function Home() {
                 src="/asesoria3d.jpg"
                 alt="Casa Sustentable"
                 fill
+                sizes="100vw"
                 className="object-cover transition duration-500 hover:scale-105"
               />
             </div>
@@ -362,12 +369,328 @@ export default function Home() {
                 src="/personalizados.jpg"
                 alt="Interior arquitectónico"
                 fill
+                sizes="100vw"
                 className="object-cover"
               />
             </div>
           </div>
         </div>
       </section>
+
+      <section className="mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-16 text-slate-950 sm:px-10">
+        <div className="flex flex-col gap-6 text-center">
+          <p className="text-sm uppercase tracking-[0.28em] text-amber-700/90">Planes</p>
+          <h2 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+            Planes para cada proyecto
+          </h2>
+          <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+            Elige el plan que mejor se adapte a tus necesidades y empieza a construir hoy mismo.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <article className="rounded-[2rem] border border-slate-200 bg-slate-50 px-8 py-10 text-left shadow-lg shadow-slate-200/40">
+            <p className="text-base font-semibold text-slate-950">Plan Básico</p>
+            <p className="mt-2 text-sm text-slate-600">Perfecto para proyectos pequeños</p>
+            <div className="mt-8 flex items-start gap-3">
+              <span className="text-5xl font-semibold text-slate-950">$299</span>
+              <span className="mt-2 text-sm text-slate-500">USD</span>
+            </div>
+            <ul className="mt-8 space-y-3 text-sm text-slate-600">
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>1 plano arquitectónico</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Vistas en 2D</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Especificaciones técnicas</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Soporte por email</li>
+            </ul>
+            <a
+              href="#"
+              className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Comprar Ahora
+            </a>
+          </article>
+
+          <article className="relative overflow-hidden rounded-[2rem] border border-slate-950 bg-slate-950 px-8 py-10 text-left shadow-2xl shadow-slate-950/20">
+            <div className="absolute inset-x-0 top-0 flex justify-center">
+              <div className="rounded-full bg-amber-700 px-4 py-1 text-xs uppercase tracking-[0.25em] text-slate-950 shadow-lg shadow-amber-700/20">
+                Más Popular
+              </div>
+            </div>
+            <div className="mt-10">
+              <p className="text-base font-semibold text-white">Plan Profesional</p>
+              <p className="mt-2 text-sm text-slate-300">Ideal para constructores</p>
+              <div className="mt-8 flex items-start gap-3">
+                <span className="text-5xl font-semibold text-white">$799</span>
+                <span className="mt-2 text-sm text-slate-400">USD</span>
+              </div>
+              <ul className="mt-8 space-y-3 text-sm text-slate-300">
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>3 planos arquitectónicos</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Vistas en 2D y 3D</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Especificaciones detalladas</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Soporte prioritario</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Render fotorrealista</li>
+              </ul>
+              <a
+                href="#"
+                className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
+              >
+                Comprar Ahora
+              </a>
+            </div>
+          </article>
+
+          <article className="rounded-[2rem] border border-slate-200 bg-slate-50 px-8 py-10 text-left shadow-lg shadow-slate-200/40">
+            <p className="text-base font-semibold text-slate-950">Plan Empresarial</p>
+            <p className="mt-2 text-sm text-slate-600">Para desarrolladores inmobiliarios</p>
+            <div className="mt-8 flex items-start gap-3">
+              <span className="text-5xl font-semibold text-slate-950">$1499</span>
+              <span className="mt-2 text-sm text-slate-500">USD</span>
+            </div>
+            <ul className="mt-8 space-y-3 text-sm text-slate-600">
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>10 planos arquitectónicos</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Vistas en 2D, 3D y VR</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Especificaciones completas</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Soporte dedicado 24/7</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Renders premium</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Licencia comercial</li>
+            </ul>
+            <a
+              href="#"
+              className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Contactar
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl bg-slate-50 px-6 pb-24 pt-16 text-slate-950 sm:px-10">
+        <div className="flex flex-col gap-6 text-center">
+          <div className="inline-flex items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white">
+            Testimonios
+          </div>
+          <h2 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+            Lo que dicen nuestros clientes
+          </h2>
+          <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+            Conoce las experiencias de quienes ya confiaron en ArquiPlanos para construir proyectos excepcionales.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/40">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-950">
+                CM
+              </div>
+              <div>
+                <p className="font-semibold text-slate-950">Carlos Mendoza</p>
+                <p className="text-sm text-slate-500">Constructor Independiente</p>
+              </div>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-amber-500">
+              {'★★★★★'.split('').map((star, index) => (
+                <span key={index}>{star}</span>
+              ))}
+            </div>
+            <p className="mt-6 text-sm leading-7 text-slate-600">
+              "Los planos de ArquiPlanos son excepcionales. La calidad del diseño y la precisión técnica me han ahorrado semanas de trabajo. Mis clientes quedan encantados con los resultados finales."
+            </p>
+          </article>
+
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/40">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-950">
+                MF
+              </div>
+              <div>
+                <p className="font-semibold text-slate-950">María Fernández</p>
+                <p className="text-sm text-slate-500">Diseñadora de Interiores</p>
+              </div>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-amber-500">
+              {'★★★★★'.split('').map((star, index) => (
+                <span key={index}>{star}</span>
+              ))}
+            </div>
+            <p className="mt-6 text-sm leading-7 text-slate-600">
+              "Como profesional del diseño, valoro la atención al detalle en cada plano. Los espacios están perfectamente distribuidos y la documentación es completa y fácil de seguir."
+            </p>
+          </article>
+
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/40 md:col-span-2">
+            <div className="grid gap-6 lg:grid-cols-[0.9fr_0.95fr] lg:items-center">
+              <div className="overflow-hidden rounded-[2rem] bg-slate-100">
+                <div className="relative h-64 w-full">
+                  <Image
+                    src="/fondo1.png"
+                    alt="Cliente satisfecho"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="font-semibold text-slate-950">Roberto Silva</p>
+                <p className="text-sm text-slate-500">Propietario de Vivienda</p>
+                <div className="mt-4 flex items-center gap-1 text-amber-500">
+                  {'★★★★★'.split('').map((star, index) => (
+                    <span key={index}>{star}</span>
+                  ))}
+                </div>
+                <p className="mt-6 text-sm leading-7 text-slate-600">
+                  "Compré el plano de la Casa Moderna Minimalista y fue la mejor decisión. El proceso de construcción fue fluido, gracias a la claridad de los planos. Mi casa quedó tal como la imaginé."
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div className="space-y-8 lg:max-w-xl">
+            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/80">
+              Contacto
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                Hablemos de tu próximo proyecto
+              </h2>
+              <p className="max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
+                ¿Tienes una idea para tu casa ideal? Cuéntanos y te ayudaremos a encontrar el plano perfecto o crear uno personalizado.
+              </p>
+            </div>
+
+            <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
+              <div className="flex items-start gap-4">
+                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
+                  ✉️
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Email</p>
+                  <p className="mt-2 font-semibold text-white">hola@arquiplanos.com</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
+                  📞
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Teléfono</p>
+                  <p className="mt-2 font-semibold text-white">+1 (555) 123-4567</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
+                  📍
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Ubicación</p>
+                  <p className="mt-2 font-semibold text-white">Ciudad de México, México</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] bg-white p-8 shadow-2xl shadow-black/10">
+            <form className="space-y-6 text-slate-950">
+              <div>
+                <label className="mb-2 block text-sm font-semibold">Nombre completo</label>
+                <input
+                  type="text"
+                  placeholder="Tu nombre"
+                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold">Email</label>
+                <input
+                  type="email"
+                  placeholder="tu@email.com"
+                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold">Teléfono</label>
+                <input
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold">Mensaje</label>
+                <textarea
+                  rows={5}
+                  placeholder="Cuéntanos sobre tu proyecto..."
+                  className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
+                />
+                <div className="mt-2 text-right text-xs text-slate-400">0/500</div>
+              </div>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
+              >
+                Enviar Mensaje
+                <span className="ml-2 text-lg">✈️</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer className="mx-auto w-full max-w-7xl px-6 pb-16 pt-14 text-slate-700 sm:px-10">
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="space-y-6">
+            <h3 className="text-2xl font-semibold text-slate-950">ArquiPlanos</h3>
+            <p className="max-w-sm text-sm leading-7 text-slate-600">
+              Diseños arquitectónicos modernos y funcionales para construir la casa de tus sueños.
+            </p>
+            <div className="flex items-center gap-3">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">IG</a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">FB</a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">IN</a>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Empresa</h4>
+            <ul className="space-y-3 text-sm text-slate-600">
+              <li><a href="#" className="transition hover:text-slate-950">Sobre Nosotros</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Nuestro Equipo</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Carreras</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Blog</a></li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Servicios</h4>
+            <ul className="space-y-3 text-sm text-slate-600">
+              <li><a href="#" className="transition hover:text-slate-950">Planos Personalizados</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Planos Listos</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Asesoría 3D</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Consultoría</a></li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Legal</h4>
+            <ul className="space-y-3 text-sm text-slate-600">
+              <li><a href="#" className="transition hover:text-slate-950">Términos de Servicio</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Política de Privacidad</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Licencias</a></li>
+              <li><a href="#" className="transition hover:text-slate-950">Iniciar Sesión</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 ArquiPlanos. Todos los derechos reservados.</p>
+          <p>Diseños arquitectónicos de calidad para todo el mundo.</p>
+        </div>
+      </footer>
 
     </div>
   );
