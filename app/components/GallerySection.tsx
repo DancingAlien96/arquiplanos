@@ -1,0 +1,119 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import type { IProject } from "@/lib/models/Project";
+
+const CATEGORIES = ["Todos", "Moderna", "Mediterránea", "Industrial", "Sustentable", "Montaña", "Playa"];
+
+export default function GallerySection({ projects }: { projects: IProject[] }) {
+  const [activeCategory, setActiveCategory] = useState("Todos");
+
+  const filtered =
+    activeCategory === "Todos"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+
+  return (
+    <section className="mx-auto w-full max-w-7xl bg-white px-6 pb-24 pt-16 text-slate-950 sm:px-10">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-xl">
+          <p className="text-sm uppercase tracking-[0.28em] text-amber-700/90">Galería</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+            Galería de Proyectos
+          </h2>
+          <p className="mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">
+            Explora nuestra colección de diseños arquitectónicos modernos y funcionales.
+          </p>
+        </div>
+        <a
+          href="#"
+          className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+        >
+          Ver Todo
+          <span className="ml-2 text-lg">→</span>
+        </a>
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-3">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={
+              activeCategory === cat
+                ? "rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white shadow-sm"
+                : "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            }
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="mt-16 text-center text-slate-500">
+          No hay proyectos en esta categoría aún.
+        </div>
+      ) : (
+        <div className="mt-10 grid gap-6 xl:grid-cols-4 lg:grid-cols-2">
+          {filtered.map((project) => (
+            <article
+              key={String(project._id)}
+              className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/40"
+            >
+              <div className="relative h-72 overflow-hidden bg-slate-100">
+                {project.images?.[0] ? (
+                  <Image
+                    src={project.images[0]}
+                    alt={project.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    className="object-cover transition duration-500 hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-slate-400 text-sm">
+                    Sin imagen
+                  </div>
+                )}
+              </div>
+              <div className="space-y-4 px-6 py-6">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-950">{project.name}</h3>
+                    <p className="text-sm text-slate-500">{project.category}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-semibold text-slate-950">${project.price.toLocaleString()}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{project.currency}</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {project.features.slice(0, 2).map((f) => (
+                    <span
+                      key={f}
+                      className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-600"
+                    >
+                      {f}
+                    </span>
+                  ))}
+                  {project.features.length > 2 && (
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-600">
+                      +{project.features.length - 2}
+                    </span>
+                  )}
+                </div>
+                <a
+                  href="#"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                >
+                  Ver Detalles
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
