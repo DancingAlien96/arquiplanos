@@ -1,22 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createHmac, timingSafeEqual } from "crypto";
 
-function verifyToken(token: string): boolean {
+async function verifyToken(token: string): Promise<boolean> {
   const secret = process.env.SESSION_SECRET ?? "fallback_dev_secret_change_in_prod";
-  try {
-    const expected = createHmac("sha256", secret)
-      .update("admin_authenticated")
-      .digest("hex");
-    return timingSafeEqual(Buffer.from(token), Buffer.from(expected));
-  } catch {
-    return false;
-  }
+  const encoder = new TextEncoder();
+
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    encoder.encode("admin_authenticated")
+  );
+
+  const expected = Array.from(new Uint8Array(signature))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  return token === expected;
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Dejar pasar la página de login y las rutas de API de auth
   if (
     pathname === "/admin/login" ||
     pathname.startsWith("/api/admin/login") ||
@@ -25,10 +36,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Proteger todo /admin
   if (pathname.startsWith("/admin")) {
     const token = request.cookies.get("admin_session")?.value ?? "";
-    if (!token || !verifyToken(token)) {
+    const valid = token ? await verifyToken(token) : false;
+    if (!valid) {
       const loginUrl = new URL("/admin/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
