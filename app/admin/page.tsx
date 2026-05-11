@@ -4,6 +4,7 @@ import Link from "next/link";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
 import AdminProjectList from "./components/AdminProjectList";
+import LogoutButton from "./components/LogoutButton";
 
 export default async function AdminPage() {
   await connectDB();
@@ -20,12 +21,15 @@ export default async function AdminPage() {
             </Link>
             <h1 className="mt-1 text-2xl font-semibold text-slate-950">Panel de Administración</h1>
           </div>
+        <div className="flex items-center gap-3">
           <Link
             href="/admin/proyectos/nuevo"
             className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             + Nuevo Proyecto
           </Link>
+          <LogoutButton />
+        </div>
         </div>
       </header>
 
