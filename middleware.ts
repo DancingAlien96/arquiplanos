@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function verifyToken(token: string): boolean {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) return false;
+  const secret = process.env.SESSION_SECRET ?? "fallback_dev_secret_change_in_prod";
   try {
     const expected = createHmac("sha256", secret)
       .update("admin_authenticated")

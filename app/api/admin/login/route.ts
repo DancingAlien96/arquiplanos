@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function signToken(payload: string): string {
-  const secret = process.env.SESSION_SECRET!;
+  const secret = process.env.SESSION_SECRET ?? "fallback_dev_secret_change_in_prod";
   return createHmac("sha256", secret).update(payload).digest("hex");
 }
 
@@ -16,12 +16,18 @@ export function verifyToken(token: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
-  const { username, password } = await request.json();
+  let body: { username?: string; password?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: "Solicitud inválida" }, { status: 400 });
+  }
 
+  const { username, password } = body;
   const validUser = process.env.ADMIN_USER ?? "admin";
   const validPass = process.env.ADMIN_PASSWORD ?? "";
 
-  if (username !== validUser || password !== validPass) {
+  if (!username || !password || username !== validUser || password !== validPass) {
     return Response.json({ error: "Credenciales incorrectas" }, { status: 401 });
   }
 
