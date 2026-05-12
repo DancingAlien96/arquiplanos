@@ -299,6 +299,7 @@ export default async function Home() {
       </section>
 
       <section id="contacto" className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="space-y-8 lg:max-w-xl">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/80">
               Contacto
