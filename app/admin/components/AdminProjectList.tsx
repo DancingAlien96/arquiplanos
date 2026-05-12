@@ -46,9 +46,9 @@ export default function AdminProjectList({ projects }: { projects: IProject[] })
           className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm"
         >
           <div className="relative h-48 bg-slate-100">
-            {project.images?.[0] ? (
+            {project.coverImage ? (
               <Image
-                src={project.images[0]}
+                src={project.coverImage}
                 alt={project.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"

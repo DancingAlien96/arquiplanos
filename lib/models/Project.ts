@@ -8,7 +8,8 @@ export interface IProject {
   price: number;
   currency: string;
   features: string[];
-  images: string[];
+  coverImage: string;   // imagen de portada (base64 data URL)
+  images: string[];     // imágenes del carrusel (base64 data URLs)
   createdAt?: Date;
 }
 
@@ -20,6 +21,7 @@ const ProjectSchema = new Schema<IProject>(
     price: { type: Number, required: true, min: 0 },
     currency: { type: String, default: "USD" },
     features: { type: [String], default: [] },
+    coverImage: { type: String, default: "" },
     images: { type: [String], default: [] },
   },
   { timestamps: true }

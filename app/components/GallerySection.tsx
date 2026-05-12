@@ -63,9 +63,9 @@ export default function GallerySection({ projects }: { projects: IProject[] }) {
               className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/40"
             >
               <div className="relative h-72 overflow-hidden bg-slate-100">
-                {project.images?.[0] ? (
+                {project.coverImage ? (
                   <Image
-                    src={project.images[0]}
+                    src={project.coverImage}
                     alt={project.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 25vw"
