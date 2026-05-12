@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 const navItems = [
-  { label: "Inicio", href: "#" },
-  { label: "Servicios", href: "#" },
-  { label: "Galería", href: "#" },
-  { label: "Contacto", href: "#" },
+  { label: "Inicio", href: "#inicio" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Galería", href: "#galeria" },
+  { label: "Contacto", href: "#contacto" },
 ];
 
 export default function Header() {

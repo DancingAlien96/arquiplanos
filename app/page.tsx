@@ -15,7 +15,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-white text-slate-950">
-      <div className="relative overflow-hidden bg-black text-white">
+      <div id="inicio" className="relative overflow-hidden bg-black text-white">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/fondo1.png')" }}
@@ -74,7 +74,7 @@ export default async function Home() {
       </div>
     </div>
 
-      <section className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-10 text-slate-950 sm:px-10">
+      <section id="servicios" className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-10 text-slate-950 sm:px-10">
         <div className="flex flex-col gap-10 lg:gap-16">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end">
             <div>
@@ -168,7 +168,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <GallerySection projects={projects} />
+      <div id="galeria">
+        <GallerySection projects={projects} />
+      </div>
 
       <section className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -296,8 +298,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <section id="contacto" className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
           <div className="space-y-8 lg:max-w-xl">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/80">
               Contacto
