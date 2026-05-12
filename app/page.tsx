@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import GallerySection from "./components/GallerySection";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Phone, MapPin, Send } from "lucide-react";
 
 export default async function Home() {
   await connectDB();
@@ -314,7 +314,7 @@ export default async function Home() {
             <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
               <div className="flex items-start gap-4">
                 <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  ✉️
+                  <Mail className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Email</p>
@@ -323,7 +323,7 @@ export default async function Home() {
               </div>
               <div className="flex items-start gap-4">
                 <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  📞
+                  <Phone className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Teléfono</p>
@@ -332,7 +332,7 @@ export default async function Home() {
               </div>
               <div className="flex items-start gap-4">
                 <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  📍
+                  <MapPin className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Ubicación</p>
@@ -382,7 +382,7 @@ export default async function Home() {
                 className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
               >
                 Enviar Mensaje
-                <span className="ml-2 text-lg">✈️</span>
+                <Send className="ml-2 h-4 w-4" />
               </button>
             </form>
           </div>
