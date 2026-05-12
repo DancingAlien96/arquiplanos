@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ImageIcon, Camera } from "lucide-react";
 
 const CATEGORIES = ["Moderna", "Mediterránea", "Industrial", "Sustentable", "Montaña", "Playa"];
 
@@ -155,7 +156,7 @@ export default function NuevoProyectoPage() {
                 onClick={() => coverInputRef.current?.click()}
                 className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-12 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
               >
-                <span className="text-3xl">🖼️</span>
+                <ImageIcon className="h-8 w-8 text-slate-400" />
                 <span className="font-medium">Seleccionar imagen de portada</span>
                 <span className="text-xs text-slate-400">JPG, PNG o WEBP</span>
               </button>
@@ -196,7 +197,7 @@ export default function NuevoProyectoPage() {
               onClick={() => galleryInputRef.current?.click()}
               className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
             >
-              <span className="text-2xl">📷</span>
+              <Camera className="h-6 w-6 text-slate-400" />
               <span>Agregar imágenes al carrusel</span>
               <span className="text-xs text-slate-400">Múltiples imágenes permitidas</span>
             </button>

@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import GallerySection from "./components/GallerySection";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
+import { ArrowRight, Check } from "lucide-react";
 
 export default async function Home() {
   await connectDB();
@@ -38,7 +39,7 @@ export default async function Home() {
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-white/90"
             >
               Explorar Colección
-              <span className="ml-2 text-lg">→</span>
+              <ArrowRight className="ml-2 h-4 w-4" />
             </a>
             <a
               href="#"
@@ -192,7 +193,7 @@ export default async function Home() {
                 className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
               >
                 Conocer Más
-                <span className="ml-2 text-lg">→</span>
+                <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>
           </div>
@@ -231,10 +232,10 @@ export default async function Home() {
               <span className="mt-2 text-sm text-slate-500">USD</span>
             </div>
             <ul className="mt-8 space-y-3 text-sm text-slate-600">
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>1 plano arquitectónico</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Vistas en 2D</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Especificaciones técnicas</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Soporte por email</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>1 plano arquitectónico</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Vistas en 2D</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Especificaciones técnicas</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Soporte por email</li>
             </ul>
             <a
               href="#"
@@ -258,11 +259,11 @@ export default async function Home() {
                 <span className="mt-2 text-sm text-slate-400">USD</span>
               </div>
               <ul className="mt-8 space-y-3 text-sm text-slate-300">
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>3 planos arquitectónicos</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Vistas en 2D y 3D</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Especificaciones detalladas</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Soporte prioritario</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">✓</span>Render fotorrealista</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>3 planos arquitectónicos</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Vistas en 2D y 3D</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Especificaciones detalladas</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Soporte prioritario</li>
+                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Render fotorrealista</li>
               </ul>
               <a
                 href="#"
@@ -281,12 +282,12 @@ export default async function Home() {
               <span className="mt-2 text-sm text-slate-500">USD</span>
             </div>
             <ul className="mt-8 space-y-3 text-sm text-slate-600">
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>10 planos arquitectónicos</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Vistas en 2D, 3D y VR</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Especificaciones completas</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Soporte dedicado 24/7</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Renders premium</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">✓</span>Licencia comercial</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>10 planos arquitectónicos</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Vistas en 2D, 3D y VR</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Especificaciones completas</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Soporte dedicado 24/7</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Renders premium</li>
+              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Licencia comercial</li>
             </ul>
             <a
               href="#"

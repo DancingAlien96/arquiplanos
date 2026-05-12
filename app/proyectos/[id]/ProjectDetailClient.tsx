@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { ShoppingCart, Lock, Zap, Clock } from "lucide-react";
 import type { IProject } from "@/lib/models/Project";
 
 export default function ProjectDetailClient({ project }: { project: IProject }) {
@@ -149,7 +150,7 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
                 href="/#contacto"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-semibold text-white transition hover:bg-slate-800"
               >
-                🛒 Comprar Ahora · ${project.price.toLocaleString()}
+                <ShoppingCart className="h-5 w-5" /> Comprar Ahora · ${project.price.toLocaleString()}
               </a>
               <a
                 href="/#galeria"
@@ -162,13 +163,13 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 text-xs text-slate-500">
               <span className="flex items-center gap-1.5">
-                <span>🔒</span> Pago Seguro
+                <Lock className="h-3.5 w-3.5" /> Pago Seguro
               </span>
               <span className="flex items-center gap-1.5">
-                <span>⚡</span> Entrega Inmediata
+                <Zap className="h-3.5 w-3.5" /> Entrega Inmediata
               </span>
               <span className="flex items-center gap-1.5">
-                <span>🕐</span> Garantía 30 días
+                <Clock className="h-3.5 w-3.5" /> Garantía 30 días
               </span>
             </div>
           </div>

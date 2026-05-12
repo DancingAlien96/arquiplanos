@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import type { IProject } from "@/lib/models/Project";
 
 const CATEGORIES = ["Todos", "Moderna", "Mediterránea", "Industrial", "Sustentable", "Montaña", "Playa"];
@@ -31,7 +32,7 @@ export default function GallerySection({ projects }: { projects: IProject[] }) {
           className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
         >
           Ver Todo
-          <span className="ml-2 text-lg">→</span>
+          <ArrowRight className="ml-2 h-4 w-4" />
         </a>
       </div>
 
