@@ -428,10 +428,10 @@ export default async function Home() {
           <div className="space-y-4">
             <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Legal</h4>
             <ul className="space-y-3 text-sm text-slate-600">
-              <li><a href="#" className="transition hover:text-slate-950">Términos de Servicio</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Política de Privacidad</a></li>
+              <li><a href="/terminos" className="transition hover:text-slate-950">Términos de Servicio</a></li>
+              <li><a href="/privacidad" className="transition hover:text-slate-950">Política de Privacidad</a></li>
               <li><a href="#" className="transition hover:text-slate-950">Licencias</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Iniciar Sesión</a></li>
+              <li><a href="/admin/login" className="transition hover:text-slate-950">Iniciar Sesión</a></li>
             </ul>
           </div>
         </div>
