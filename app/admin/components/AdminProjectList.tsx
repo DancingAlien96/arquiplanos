@@ -67,6 +67,12 @@ export default function AdminProjectList({ projects }: { projects: IProject[] })
             </div>
             <p className="text-xs text-slate-600 line-clamp-2">{project.description}</p>
             <div className="flex gap-2 pt-1">
+              <a
+                href={`/admin/proyectos/${String(project._id)}/editar`}
+                className="flex-1 inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+              >
+                Editar
+              </a>
               <button
                 onClick={() => handleDelete(String(project._id), project.name)}
                 disabled={deletingId === String(project._id)}
