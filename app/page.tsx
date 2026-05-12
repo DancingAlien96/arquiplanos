@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import GallerySection from "./components/GallerySection";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default async function Home() {
   await connectDB();
@@ -209,93 +209,6 @@ export default async function Home() {
               />
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-16 text-slate-950 sm:px-10">
-        <div className="flex flex-col gap-6 text-center">
-          <p className="text-sm uppercase tracking-[0.28em] text-amber-700/90">Planes</p>
-          <h2 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-            Planes para cada proyecto
-          </h2>
-          <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-            Elige el plan que mejor se adapte a tus necesidades y empieza a construir hoy mismo.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          <article className="rounded-[2rem] border border-slate-200 bg-slate-50 px-8 py-10 text-left shadow-lg shadow-slate-200/40">
-            <p className="text-base font-semibold text-slate-950">Plan Básico</p>
-            <p className="mt-2 text-sm text-slate-600">Perfecto para proyectos pequeños</p>
-            <div className="mt-8 flex items-start gap-3">
-              <span className="text-5xl font-semibold text-slate-950">$299</span>
-              <span className="mt-2 text-sm text-slate-500">USD</span>
-            </div>
-            <ul className="mt-8 space-y-3 text-sm text-slate-600">
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>1 plano arquitectónico</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Vistas en 2D</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Especificaciones técnicas</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Soporte por email</li>
-            </ul>
-            <a
-              href="#"
-              className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Comprar Ahora
-            </a>
-          </article>
-
-          <article className="relative overflow-hidden rounded-[2rem] border border-slate-950 bg-slate-950 px-8 py-10 text-left shadow-2xl shadow-slate-950/20">
-            <div className="absolute inset-x-0 top-0 flex justify-center">
-              <div className="rounded-full bg-amber-700 px-4 py-1 text-xs uppercase tracking-[0.25em] text-slate-950 shadow-lg shadow-amber-700/20">
-                Más Popular
-              </div>
-            </div>
-            <div className="mt-10">
-              <p className="text-base font-semibold text-white">Plan Profesional</p>
-              <p className="mt-2 text-sm text-slate-300">Ideal para constructores</p>
-              <div className="mt-8 flex items-start gap-3">
-                <span className="text-5xl font-semibold text-white">$799</span>
-                <span className="mt-2 text-sm text-slate-400">USD</span>
-              </div>
-              <ul className="mt-8 space-y-3 text-sm text-slate-300">
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>3 planos arquitectónicos</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Vistas en 2D y 3D</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Especificaciones detalladas</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Soporte prioritario</li>
-                <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white"><Check className="h-3 w-3" /></span>Render fotorrealista</li>
-              </ul>
-              <a
-                href="#"
-                className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
-              >
-                Comprar Ahora
-              </a>
-            </div>
-          </article>
-
-          <article className="rounded-[2rem] border border-slate-200 bg-slate-50 px-8 py-10 text-left shadow-lg shadow-slate-200/40">
-            <p className="text-base font-semibold text-slate-950">Plan Empresarial</p>
-            <p className="mt-2 text-sm text-slate-600">Para desarrolladores inmobiliarios</p>
-            <div className="mt-8 flex items-start gap-3">
-              <span className="text-5xl font-semibold text-slate-950">$1499</span>
-              <span className="mt-2 text-sm text-slate-500">USD</span>
-            </div>
-            <ul className="mt-8 space-y-3 text-sm text-slate-600">
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>10 planos arquitectónicos</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Vistas en 2D, 3D y VR</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Especificaciones completas</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Soporte dedicado 24/7</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Renders premium</li>
-              <li className="flex items-center gap-3"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3 w-3" /></span>Licencia comercial</li>
-            </ul>
-            <a
-              href="#"
-              className="mt-10 inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Contactar
-            </a>
-          </article>
         </div>
       </section>
 
