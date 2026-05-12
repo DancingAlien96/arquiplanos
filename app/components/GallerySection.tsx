@@ -104,7 +104,7 @@ export default function GallerySection({ projects }: { projects: IProject[] }) {
                   )}
                 </div>
                 <a
-                  href="#"
+                  href={`/proyectos/${String(project._id)}`}
                   className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
                   Ver Detalles
