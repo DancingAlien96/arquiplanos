@@ -214,7 +214,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl bg-slate-50 px-6 pb-24 pt-16 text-slate-950 sm:px-10">
+      <section id="testimonios" className="mx-auto w-full max-w-7xl bg-slate-50 px-6 pb-24 pt-16 text-slate-950 sm:px-10">
         <div className="flex flex-col gap-6 text-center">
           <div className="inline-flex items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white">
             Testimonios
