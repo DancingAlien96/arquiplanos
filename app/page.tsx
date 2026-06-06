@@ -16,9 +16,13 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-950">
       <div id="inicio" className="relative overflow-hidden bg-black text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/fondo1.png')" }}
+        <Image
+          src="/fondo1.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_20%]"
         />
         <div className="absolute inset-0 bg-black/55" />
 
