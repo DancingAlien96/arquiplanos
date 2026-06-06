@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const navItems = [
   { label: "Inicio", href: "#inicio" },
@@ -16,7 +17,9 @@ export default function Header() {
   return (
     <header className="relative z-10 mx-auto w-full max-w-7xl px-6 py-6 sm:px-10">
       <div className="flex items-center justify-between gap-4">
-        <div className="text-xl font-semibold tracking-[0.18em] text-white">ArquiPlanos</div>
+        <a href="#inicio">
+          <Image src="/logo.jpg" alt="ArquiPlanos" width={140} height={48} className="h-12 w-auto object-contain" priority />
+        </a>
 
         <button
           type="button"
