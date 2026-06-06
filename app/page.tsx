@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import GallerySection from "./components/GallerySection";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
-import { ArrowRight, Mail, Phone, MapPin, Send, PenLine, Download, BookOpen, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, PenLine, Download, BookOpen, SlidersHorizontal } from "lucide-react";
 
 export default async function Home() {
   await connectDB();
@@ -265,98 +265,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="contacto" className="mx-auto w-full max-w-7xl bg-slate-950 px-6 py-20 text-white sm:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-          <div className="space-y-8 lg:max-w-xl">
-            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/80">
-              Contacto
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                Hablemos de tu próximo proyecto
-              </h2>
-              <p className="max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
-                ¿Tienes una idea para tu casa ideal? Cuéntanos y te ayudaremos a encontrar el plano perfecto o crear uno personalizado.
-              </p>
-            </div>
-
-            <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
-              <div className="flex items-start gap-4">
-                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  <Mail className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Email</p>
-                  <p className="mt-2 font-semibold text-white">hola@arquiplanos.com</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  <Phone className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Teléfono</p>
-                  <p className="mt-2 font-semibold text-white">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-3xl bg-slate-950 text-white">
-                  <MapPin className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-[0.18em] text-slate-400">Ubicación</p>
-                  <p className="mt-2 font-semibold text-white">Ciudad de México, México</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] bg-white p-8 shadow-2xl shadow-black/10">
-            <form className="space-y-6 text-slate-950">
-              <div>
-                <label className="mb-2 block text-sm font-semibold">Nombre completo</label>
-                <input
-                  type="text"
-                  placeholder="Tu nombre"
-                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
-                />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold">Email</label>
-                <input
-                  type="email"
-                  placeholder="tu@email.com"
-                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
-                />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold">Teléfono</label>
-                <input
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
-                />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold">Mensaje</label>
-                <textarea
-                  rows={5}
-                  placeholder="Cuéntanos sobre tu proyecto..."
-                  className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-700 outline-none transition focus:border-slate-950"
-                />
-                <div className="mt-2 text-right text-xs text-slate-400">0/500</div>
-              </div>
-              <button
-                type="submit"
-                className="inline-flex w-full items-center justify-center rounded-full bg-slate-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
-              >
-                Enviar Mensaje
-                <Send className="ml-2 h-4 w-4" />
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
 
       <footer className="mx-auto w-full max-w-7xl px-6 pb-16 pt-14 text-slate-700 sm:px-10">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
