@@ -18,7 +18,7 @@ export default function Header() {
     <header className="relative z-10 mx-auto w-full max-w-7xl px-6 py-6 sm:px-10">
       <div className="flex items-center justify-between gap-4">
         <a href="#inicio">
-          <Image src="/logo.png" alt="ArquiPlanos" width={260} height={90} className="h-20 w-auto object-contain brightness-0 invert" priority />
+          <Image src="/logo.png" alt="ArquiPlanos" width={340} height={120} className="h-20 w-auto object-contain brightness-0 invert md:h-28" priority />
         </a>
 
         <button
