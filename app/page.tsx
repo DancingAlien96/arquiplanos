@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import GallerySection from "./components/GallerySection";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
-import { ArrowRight, Mail, Phone, MapPin, Send } from "lucide-react";
+import { ArrowRight, Mail, Phone, MapPin, Send, PenLine, Download, BookOpen, SlidersHorizontal } from "lucide-react";
 
 export default async function Home() {
   await connectDB();
@@ -74,94 +74,61 @@ export default async function Home() {
       </div>
     </div>
 
-      <section id="servicios" className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-10 text-slate-950 sm:px-10">
-        <div className="flex flex-col gap-10 lg:gap-16">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end">
-            <div>
-              <p className="text-sm uppercase tracking-[0.32em] text-amber-700/90">Nuestros</p>
-              <h2 className="mt-4 text-4xl font-semibold leading-tight text-slate-950 sm:text-5xl">
-                Servicios
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-7 text-slate-700 sm:text-base">
-              Ofrecemos soluciones arquitectónicas completas, desde planos personalizados hasta visualizaciones
-              3D fotorrealistas. Cada proyecto es diseñado con precisión y estilo.
-            </p>
+      <section id="servicios" className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-16 text-slate-950 sm:px-10">
+        <div className="flex flex-col gap-12">
+          <div className="text-center">
+            <p className="text-sm uppercase tracking-[0.32em] text-amber-700/90">Nuestros beneficios</p>
+            <h2 className="mt-4 text-4xl font-semibold leading-tight text-slate-950 sm:text-5xl">
+              ¿Por qué elegir nuestros planos?
+            </h2>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/50">
-              <div className="relative h-64 overflow-hidden bg-slate-100">
-                <Image
-                  src="/personalizados.jpg"
-                  alt="Planos Personalizados"
-                  fill
-                  sizes="100vw"
-                  className="object-cover transition duration-500 hover:scale-105"
-                />
+          <div className="grid gap-6 sm:grid-cols-2">
+            <article className="flex items-start gap-6 rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-lg shadow-slate-200/50 transition hover:shadow-slate-200">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
+                <PenLine className="h-6 w-6" />
               </div>
-              <div className="space-y-4 px-6 py-6 text-left">
-                <p className="text-base font-semibold text-slate-950">Planos Personalizados</p>
-                <p className="text-sm leading-7 text-slate-700">
-                  Diseños arquitectónicos adaptados a tus necesidades específicas, terreno y presupuesto.
-                  Trabajamos contigo para crear la casa perfecta.
+              <div className="space-y-2">
+                <p className="text-base font-semibold text-slate-950">Diseños profesionales</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  Planos arquitectónicos funcionales elaborados con precisión técnica y medidas detalladas listas para construir.
                 </p>
-                <a
-                  href="#"
-                  className="inline-flex rounded-full bg-slate-950 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                >
-                  Saber Más
-                </a>
               </div>
             </article>
 
-            <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/50">
-              <div className="relative h-64 overflow-hidden bg-slate-100">
-                <Image
-                  src="/planoslistos.png"
-                  alt="Planos Listos"
-                  fill
-                  sizes="100vw"
-                  className="object-cover transition duration-500 hover:scale-105"
-                />
+            <article className="flex items-start gap-6 rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-lg shadow-slate-200/50 transition hover:shadow-slate-200">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
+                <Download className="h-6 w-6" />
               </div>
-              <div className="space-y-4 px-6 py-6 text-left">
-                <p className="text-base font-semibold text-slate-950">Planos Listos</p>
-                <p className="text-sm leading-7 text-slate-700">
-                  Colección de diseños pre-diseñados listos para construir. Elige entre estilos modernos,
-                  mediterráneos, industriales y más.
+              <div className="space-y-2">
+                <p className="text-base font-semibold text-slate-950">Descarga inmediata</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  Recibe tus planos al instante en formato digital. Sin esperas, disponibles desde el momento de tu compra.
                 </p>
-                <a
-                  href="#"
-                  className="inline-flex rounded-full bg-slate-950 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                >
-                  Saber Más
-                </a>
               </div>
             </article>
 
-            <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/50">
-              <div className="relative h-64 overflow-hidden bg-slate-100">
-                <Image
-                  src="/asesoria3d.jpg"
-                  alt="Asesoría 3D"
-                  fill
-                  sizes="100vw"
-                  className="object-cover transition duration-500 hover:scale-105"
-                />
+            <article className="flex items-start gap-6 rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-lg shadow-slate-200/50 transition hover:shadow-slate-200">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
+                <BookOpen className="h-6 w-6" />
               </div>
-              <div className="space-y-4 px-6 py-6 text-left">
-                <p className="text-base font-semibold text-slate-950">Asesoría 3D</p>
-                <p className="text-sm leading-7 text-slate-700">
-                  Visualizaciones en 3D fotorrealistas de tu proyecto antes de construir. Recorre virtualmente
-                  cada espacio y toma decisiones informadas.
+              <div className="space-y-2">
+                <p className="text-base font-semibold text-slate-950">Fáciles de entender</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  Cada plano incluye nombres de espacios, dimensiones claras y especificaciones técnicas comprensibles para todos.
                 </p>
-                <a
-                  href="#"
-                  className="inline-flex rounded-full bg-slate-950 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                >
-                  Saber Más
-                </a>
+              </div>
+            </article>
+
+            <article className="flex items-start gap-6 rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-lg shadow-slate-200/50 transition hover:shadow-slate-200">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
+                <SlidersHorizontal className="h-6 w-6" />
+              </div>
+              <div className="space-y-2">
+                <p className="text-base font-semibold text-slate-950">Personalización</p>
+                <p className="text-sm leading-7 text-slate-600">
+                  Adaptamos cualquier plano a tus necesidades, terreno y presupuesto para que sea exactamente lo que imaginas.
+                </p>
               </div>
             </article>
           </div>
