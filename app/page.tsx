@@ -266,36 +266,20 @@ export default async function Home() {
 
 
       <footer className="mx-auto w-full max-w-7xl px-6 pb-16 pt-14 text-slate-700 sm:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div className="space-y-6">
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-slate-950">ArquiPlanos</h3>
             <p className="max-w-sm text-sm leading-7 text-slate-600">
               Diseños arquitectónicos modernos y funcionales para construir la casa de tus sueños.
             </p>
-            <div className="flex items-center gap-3">
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">IG</a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">FB</a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">IN</a>
-            </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Empresa</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Navegación</h4>
             <ul className="space-y-3 text-sm text-slate-600">
-              <li><a href="#" className="transition hover:text-slate-950">Sobre Nosotros</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Nuestro Equipo</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Carreras</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Blog</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-950">Servicios</h4>
-            <ul className="space-y-3 text-sm text-slate-600">
-              <li><a href="#" className="transition hover:text-slate-950">Planos Personalizados</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Planos Listos</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Asesoría 3D</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Consultoría</a></li>
+              <li><a href="#inicio" className="transition hover:text-slate-950">Inicio</a></li>
+              <li><a href="#galeria" className="transition hover:text-slate-950">Galería</a></li>
+              <li><a href="#testimonios" className="transition hover:text-slate-950">Testimonios</a></li>
             </ul>
           </div>
 
@@ -304,7 +288,6 @@ export default async function Home() {
             <ul className="space-y-3 text-sm text-slate-600">
               <li><a href="/terminos" className="transition hover:text-slate-950">Términos de Servicio</a></li>
               <li><a href="/privacidad" className="transition hover:text-slate-950">Política de Privacidad</a></li>
-              <li><a href="#" className="transition hover:text-slate-950">Licencias</a></li>
               <li><a href="/admin/login" className="transition hover:text-slate-950">Iniciar Sesión</a></li>
             </ul>
           </div>
