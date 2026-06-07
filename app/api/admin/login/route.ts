@@ -1,18 +1,15 @@
 import { NextRequest } from "next/server";
-import { createHmac, timingSafeEqual } from "crypto";
+import { createHmac } from "crypto";
 
-function signToken(payload: string): string {
-  const secret = process.env.SESSION_SECRET ?? "fallback_dev_secret_change_in_prod";
-  return createHmac("sha256", secret).update(payload).digest("hex");
-}
-
-export function verifyToken(token: string): boolean {
-  const expected = signToken("admin_authenticated");
-  try {
-    return timingSafeEqual(Buffer.from(token), Buffer.from(expected));
-  } catch {
-    return false;
+function signToken(): string {
+  const secret = process.env.SESSION_SECRET;
+  if (!secret || secret.length < 32) {
+    throw new Error("SESSION_SECRET must be set to a strong random value of at least 32 characters");
   }
+  const expiry = Date.now() + 8 * 60 * 60 * 1000; // 8 horas
+  const payload = `admin:${expiry}`;
+  const sig = createHmac("sha256", secret).update(payload).digest("hex");
+  return `${expiry}.${sig}`;
 }
 
 export async function POST(request: NextRequest) {
@@ -31,7 +28,12 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Credenciales incorrectas" }, { status: 401 });
   }
 
-  const token = signToken("admin_authenticated");
+  let token: string;
+  try {
+    token = signToken();
+  } catch {
+    return Response.json({ error: "Configuración del servidor incorrecta" }, { status: 500 });
+  }
 
   const response = Response.json({ ok: true });
   response.headers.set(
