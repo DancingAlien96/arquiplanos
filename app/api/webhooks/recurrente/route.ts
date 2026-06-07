@@ -7,8 +7,6 @@ import { connectDB } from "@/lib/mongodb";
 import Order from "@/lib/models/Order";
 import Project from "@/lib/models/Project";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
-
 export async function POST(req: NextRequest) {
   // Verificar firma Svix antes de procesar cualquier dato
   const webhookSecret = process.env.RECURRENTE_WEBHOOK_SECRET;
@@ -107,6 +105,7 @@ export async function POST(req: NextRequest) {
       }
 
       if (pdfBuffer && pdfBuffer.slice(0, 5).toString() === "%PDF-") {
+        const resend = new Resend(process.env.RESEND_API_KEY!);
         await resend.emails.send({
           from: process.env.FROM_EMAIL!,
           to: buyerEmail,
