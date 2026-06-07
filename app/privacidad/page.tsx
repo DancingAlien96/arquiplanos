@@ -33,7 +33,7 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">1. Responsable del tratamiento</h2>
             <p>
-              ArquiPlanos, con domicilio en Ciudad de México, México, es el responsable del tratamiento de sus datos personales recopilados a través de este sitio web y del proceso de compra de planos arquitectónicos digitales.
+              ArquiPlanos, con domicilio en Guatemala, es el responsable del tratamiento de sus datos personales recopilados a través de este sitio web y del proceso de compra de planos arquitectónicos digitales.
             </p>
             <p>
               Para cualquier consulta relacionada con esta política, puede contactarnos en <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a>.
@@ -133,7 +133,7 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">10. Transferencias internacionales</h2>
             <p>
-              Algunos de nuestros proveedores de servicios pueden estar ubicados fuera de México. En tales casos, nos aseguramos de que dichas transferencias se realicen conforme a mecanismos legales adecuados y con niveles de protección equivalentes a los exigidos por la legislación mexicana.
+              Algunos de nuestros proveedores de servicios pueden estar ubicados fuera de Guatemala. En tales casos, nos aseguramos de que dichas transferencias se realicen conforme a mecanismos legales adecuados y con niveles de protección equivalentes a los exigidos por la legislación guatemalteca.
             </p>
           </section>
 
@@ -148,9 +148,9 @@ export default function PrivacidadPage() {
             <h2 className="text-xl font-semibold text-slate-950">12. Contacto</h2>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
               <p><strong>ArquiPlanos</strong></p>
-              <p>Ciudad de México, México</p>
+              <p>Guatemala</p>
               <p>Email: <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a></p>
-              <p>Teléfono: +1 (555) 123-4567</p>
+              <p>Teléfono: +502 5749-4629</p>
             </div>
           </section>
 

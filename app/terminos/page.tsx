@@ -127,7 +127,7 @@ export default function TerminosPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">9. Ley aplicable y jurisdicción</h2>
             <p>
-              Estos términos se rigen por las leyes de México. Cualquier disputa que surja en relación con estos términos se someterá a la jurisdicción de los tribunales competentes de la Ciudad de México, renunciando las partes a cualquier otro fuero que pudiera corresponderles.
+              Estos términos se rigen por las leyes de Guatemala. Cualquier disputa que surja en relación con estos términos se someterá a la jurisdicción de los tribunales competentes de Guatemala, renunciando las partes a cualquier otro fuero que pudiera corresponderles.
             </p>
           </section>
 
@@ -138,9 +138,9 @@ export default function TerminosPage() {
             </p>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
               <p><strong>ArquiPlanos</strong></p>
-              <p>Ciudad de México, México</p>
+              <p>Guatemala</p>
               <p>Email: <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a></p>
-              <p>Teléfono: +1 (555) 123-4567</p>
+              <p>Teléfono: +502 5749-4629</p>
             </div>
           </section>
 
