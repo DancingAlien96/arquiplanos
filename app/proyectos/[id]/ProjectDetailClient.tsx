@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ShoppingCart, Lock, Zap, Clock } from "lucide-react";
+import { ShoppingCart, Lock, Zap, Clock, Loader2 } from "lucide-react";
 import type { IProject } from "@/lib/models/Project";
 
 export default function ProjectDetailClient({ project }: { project: IProject }) {
@@ -12,6 +12,26 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
   ];
 
   const [activeImg, setActiveImg] = useState(allImages[0] ?? "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleComprar() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projectId: project._id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al procesar el pago");
+      window.location.href = data.url;
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Error inesperado");
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white text-slate-950">
@@ -146,12 +166,20 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
 
             {/* CTA */}
             <div className="flex flex-col gap-3">
-              <a
-                href="/#contacto"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-semibold text-white transition hover:bg-slate-800"
+              {error && (
+                <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
+              )}
+              <button
+                onClick={handleComprar}
+                disabled={loading}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <ShoppingCart className="h-5 w-5" /> Comprar Ahora · ${project.price.toLocaleString()}
-              </a>
+                {loading ? (
+                  <><Loader2 className="h-5 w-5 animate-spin" /> Procesando...</>
+                ) : (
+                  <><ShoppingCart className="h-5 w-5" /> Comprar Ahora · ${project.price.toLocaleString()} {project.currency}</>
+                )}
+              </button>
               <a
                 href="/#galeria"
                 className="inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
