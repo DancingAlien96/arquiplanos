@@ -39,7 +39,7 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
       <header className="border-b border-slate-100 bg-white px-6 py-4 sm:px-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <a href="/" className="text-xl font-semibold tracking-tight text-slate-950">
-            ArquiPlanos
+            Habitio Design
           </a>
           <nav className="hidden gap-8 text-sm font-medium text-slate-700 sm:flex">
             <a href="/#servicios" className="hover:text-slate-950 transition">Servicios</a>
@@ -207,7 +207,7 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
       {/* Footer simple */}
       <footer className="border-t border-slate-100 bg-slate-50 px-6 py-8 sm:px-10">
         <div className="mx-auto max-w-7xl flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
-          <span className="text-sm font-semibold text-slate-950">ArquiPlanos</span>
+          <span className="text-sm font-semibold text-slate-950">Habitio Design</span>
           <p className="text-xs text-slate-500">Diseños arquitectónicos modernos y funcionales</p>
         </div>
       </footer>

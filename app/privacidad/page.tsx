@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidad | ArquiPlanos",
-  description: "Política de privacidad y tratamiento de datos personales de ArquiPlanos.",
+  title: "Política de Privacidad | Habitio Design",
+  description: "Política de privacidad y tratamiento de datos personales de Habitio Design.",
 };
 
 export default function PrivacidadPage() {
@@ -13,7 +13,7 @@ export default function PrivacidadPage() {
       <header className="border-b border-slate-100 bg-white px-6 py-4 sm:px-10">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href="/" className="text-xl font-semibold tracking-tight text-slate-950">
-            ArquiPlanos
+            Habitio Design
           </Link>
           <Link href="/" className="text-sm text-slate-500 hover:text-slate-800 transition">
             ← Volver al inicio
@@ -33,7 +33,7 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">1. Responsable del tratamiento</h2>
             <p>
-              ArquiPlanos, con domicilio en Guatemala, es el responsable del tratamiento de sus datos personales recopilados a través de este sitio web y del proceso de compra de planos arquitectónicos digitales.
+              Habitio Design, con domicilio en Guatemala, es el responsable del tratamiento de sus datos personales recopilados a través de este sitio web y del proceso de compra de planos arquitectónicos digitales.
             </p>
             <p>
               Para cualquier consulta relacionada con esta política, puede contactarnos en <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a>.
@@ -45,7 +45,7 @@ export default function PrivacidadPage() {
             <p>Recopilamos los siguientes datos personales:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li><strong>Datos de contacto:</strong> nombre completo, correo electrónico y número de teléfono, proporcionados a través del formulario de contacto o al realizar una compra.</li>
-              <li><strong>Datos de transacción:</strong> información necesaria para procesar el pago, como dirección de facturación. Los datos de tarjeta de crédito son procesados directamente por la pasarela de pago y ArquiPlanos no los almacena.</li>
+              <li><strong>Datos de transacción:</strong> información necesaria para procesar el pago, como dirección de facturación. Los datos de tarjeta de crédito son procesados directamente por la pasarela de pago y Habitio Design no los almacena.</li>
               <li><strong>Datos de navegación:</strong> dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia, recopilados mediante cookies y herramientas analíticas.</li>
               <li><strong>Comunicaciones:</strong> contenido de los mensajes que nos envía a través del formulario de contacto o por correo electrónico.</li>
             </ul>
@@ -58,7 +58,7 @@ export default function PrivacidadPage() {
               <li>Procesar y gestionar la compra y entrega de planos arquitectónicos digitales.</li>
               <li>Enviar confirmaciones de pedido y los archivos adquiridos al correo registrado.</li>
               <li>Responder consultas y solicitudes de soporte técnico o postventa.</li>
-              <li>Enviar comunicaciones comerciales y novedades de ArquiPlanos, previa aceptación del usuario (puede darse de baja en cualquier momento).</li>
+              <li>Enviar comunicaciones comerciales y novedades de Habitio Design, previa aceptación del usuario (puede darse de baja en cualquier momento).</li>
               <li>Mejorar la experiencia de navegación y el rendimiento del sitio web.</li>
               <li>Cumplir con obligaciones legales y fiscales aplicables.</li>
             </ul>
@@ -78,7 +78,7 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">5. Compartición de datos con terceros</h2>
             <p>
-              ArquiPlanos no vende ni alquila sus datos personales a terceros. Podemos compartir información con:
+              Habitio Design no vende ni alquila sus datos personales a terceros. Podemos compartir información con:
             </p>
             <ul className="list-disc pl-6 space-y-1">
               <li><strong>Pasarelas de pago:</strong> para procesar transacciones de forma segura (ej. Stripe, PayPal). Estos proveedores cuentan con sus propias políticas de privacidad.</li>
@@ -116,7 +116,7 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">8. Seguridad de los datos</h2>
             <p>
-              ArquiPlanos adopta medidas técnicas y organizativas apropiadas para proteger sus datos contra el acceso no autorizado, la alteración, la divulgación o la destrucción. Las transmisiones de datos en nuestro sitio se realizan mediante cifrado SSL/TLS.
+              Habitio Design adopta medidas técnicas y organizativas apropiadas para proteger sus datos contra el acceso no autorizado, la alteración, la divulgación o la destrucción. Las transmisiones de datos en nuestro sitio se realizan mediante cifrado SSL/TLS.
             </p>
           </section>
 
@@ -140,14 +140,14 @@ export default function PrivacidadPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">11. Cambios en esta política</h2>
             <p>
-              ArquiPlanos puede actualizar esta Política de Privacidad ocasionalmente. Notificaremos los cambios sustanciales publicando la nueva versión en esta página con la fecha de actualización. Le recomendamos revisarla periódicamente.
+              Habitio Design puede actualizar esta Política de Privacidad ocasionalmente. Notificaremos los cambios sustanciales publicando la nueva versión en esta página con la fecha de actualización. Le recomendamos revisarla periódicamente.
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">12. Contacto</h2>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
-              <p><strong>ArquiPlanos</strong></p>
+              <p><strong>Habitio Design</strong></p>
               <p>Guatemala</p>
               <p>Email: <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a></p>
               <p>Teléfono: +502 5749-4629</p>
@@ -159,7 +159,7 @@ export default function PrivacidadPage() {
 
       <footer className="border-t border-slate-100 bg-slate-50 px-6 py-8 sm:px-10 mt-16">
         <div className="mx-auto max-w-4xl flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
-          <span className="text-sm font-semibold text-slate-950">ArquiPlanos</span>
+          <span className="text-sm font-semibold text-slate-950">Habitio Design</span>
           <div className="flex gap-6 text-xs text-slate-500">
             <Link href="/terminos" className="hover:text-slate-800 transition">Términos de Servicio</Link>
             <Link href="/privacidad" className="hover:text-slate-800 transition font-medium text-slate-700">Política de Privacidad</Link>

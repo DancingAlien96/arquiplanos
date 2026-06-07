@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="text-xl font-semibold tracking-[0.15em] text-slate-950">ArquiPlanos</p>
+          <p className="text-xl font-semibold tracking-[0.15em] text-slate-950">Habitio Design</p>
           <p className="mt-2 text-sm text-slate-500">Panel de administración</p>
         </div>
 

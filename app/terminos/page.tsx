@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Términos de Servicio | ArquiPlanos",
-  description: "Términos y condiciones para la compra y uso de planos arquitectónicos de ArquiPlanos.",
+  title: "Términos de Servicio | Habitio Design",
+  description: "Términos y condiciones para la compra y uso de planos arquitectónicos de Habitio Design.",
 };
 
 export default function TerminosPage() {
@@ -13,7 +13,7 @@ export default function TerminosPage() {
       <header className="border-b border-slate-100 bg-white px-6 py-4 sm:px-10">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href="/" className="text-xl font-semibold tracking-tight text-slate-950">
-            ArquiPlanos
+            Habitio Design
           </Link>
           <Link href="/" className="text-sm text-slate-500 hover:text-slate-800 transition">
             ← Volver al inicio
@@ -33,20 +33,20 @@ export default function TerminosPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">1. Aceptación de los términos</h2>
             <p>
-              Al acceder y realizar una compra en ArquiPlanos, usted acepta quedar vinculado por estos Términos de Servicio. Si no está de acuerdo con alguno de estos términos, le pedimos que no utilice nuestros servicios ni realice ninguna compra.
+              Al acceder y realizar una compra en Habitio Design, usted acepta quedar vinculado por estos Términos de Servicio. Si no está de acuerdo con alguno de estos términos, le pedimos que no utilice nuestros servicios ni realice ninguna compra.
             </p>
             <p>
-              ArquiPlanos se reserva el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor a partir de su publicación en este sitio. El uso continuado del servicio después de dichas modificaciones constituye la aceptación de los nuevos términos.
+              Habitio Design se reserva el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor a partir de su publicación en este sitio. El uso continuado del servicio después de dichas modificaciones constituye la aceptación de los nuevos términos.
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">2. Descripción del servicio</h2>
             <p>
-              ArquiPlanos comercializa planos arquitectónicos digitales en formato PDF y/o DWG para uso en proyectos de construcción residencial. Los planos incluyen: plantas arquitectónicas, cortes, alzados, detalles constructivos y especificaciones técnicas, según el paquete adquirido.
+              Habitio Design comercializa planos arquitectónicos digitales en formato PDF y/o DWG para uso en proyectos de construcción residencial. Los planos incluyen: plantas arquitectónicas, cortes, alzados, detalles constructivos y especificaciones técnicas, según el paquete adquirido.
             </p>
             <p>
-              Los diseños son creados por arquitectos certificados y sirven como base de referencia para la construcción. ArquiPlanos no presta servicios de dirección de obra, inspección, supervisión ni gestión de licencias de construcción.
+              Los diseños son creados por arquitectos certificados y sirven como base de referencia para la construcción. Habitio Design no presta servicios de dirección de obra, inspección, supervisión ni gestión de licencias de construcción.
             </p>
           </section>
 
@@ -70,7 +70,7 @@ export default function TerminosPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">4. Responsabilidad técnica y legal de la construcción</h2>
             <p>
-              Los planos de ArquiPlanos son diseños de referencia arquitectónica. Es responsabilidad exclusiva del comprador y/o del profesional a cargo de la obra:
+              Los planos de Habitio Design son diseños de referencia arquitectónica. Es responsabilidad exclusiva del comprador y/o del profesional a cargo de la obra:
             </p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Verificar que el diseño cumple con las normas de construcción locales, municipales y nacionales vigentes en su país o región.</li>
@@ -79,7 +79,7 @@ export default function TerminosPage() {
               <li>Realizar los estudios de suelo, estructurales, hidráulicos, eléctricos y de cualquier otra especialidad necesaria para la seguridad de la obra.</li>
             </ul>
             <p>
-              ArquiPlanos no asume ninguna responsabilidad por daños, pérdidas, lesiones o incumplimientos normativos derivados del uso de los planos en una obra de construcción.
+              Habitio Design no asume ninguna responsabilidad por daños, pérdidas, lesiones o incumplimientos normativos derivados del uso de los planos en una obra de construcción.
             </p>
           </section>
 
@@ -89,7 +89,7 @@ export default function TerminosPage() {
               Una vez confirmado el pago, recibirá los archivos digitales en su correo electrónico en un plazo máximo de <strong>24 horas hábiles</strong>. Los archivos se entregan en formato PDF de alta resolución; los formatos DWG o editable pueden solicitarse como servicio adicional.
             </p>
             <p>
-              ArquiPlanos no realiza envíos físicos. El producto es 100% digital.
+              Habitio Design no realiza envíos físicos. El producto es 100% digital.
             </p>
           </section>
 
@@ -110,17 +110,17 @@ export default function TerminosPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">7. Propiedad intelectual</h2>
             <p>
-              Todos los diseños, imágenes, textos y contenidos publicados en ArquiPlanos son propiedad de ArquiPlanos o de sus colaboradores y están protegidos por las leyes de propiedad intelectual aplicables. La compra de un plano no transfiere derechos de autor al comprador.
+              Todos los diseños, imágenes, textos y contenidos publicados en Habitio Design son propiedad de Habitio Design o de sus colaboradores y están protegidos por las leyes de propiedad intelectual aplicables. La compra de un plano no transfiere derechos de autor al comprador.
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-slate-950">8. Limitación de responsabilidad</h2>
             <p>
-              En la máxima medida permitida por la ley, ArquiPlanos no será responsable por daños indirectos, incidentales, especiales o consecuentes que resulten del uso o la imposibilidad de uso de los planos, incluyendo pero no limitado a: pérdidas económicas, defectos estructurales, incumplimiento normativo o retrasos en la obra.
+              En la máxima medida permitida por la ley, Habitio Design no será responsable por daños indirectos, incidentales, especiales o consecuentes que resulten del uso o la imposibilidad de uso de los planos, incluyendo pero no limitado a: pérdidas económicas, defectos estructurales, incumplimiento normativo o retrasos en la obra.
             </p>
             <p>
-              La responsabilidad total de ArquiPlanos ante el cliente no excederá el monto pagado por el producto específico en cuestión.
+              La responsabilidad total de Habitio Design ante el cliente no excederá el monto pagado por el producto específico en cuestión.
             </p>
           </section>
 
@@ -137,7 +137,7 @@ export default function TerminosPage() {
               Para cualquier consulta sobre estos términos, puede contactarnos en:
             </p>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
-              <p><strong>ArquiPlanos</strong></p>
+              <p><strong>Habitio Design</strong></p>
               <p>Guatemala</p>
               <p>Email: <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a></p>
               <p>Teléfono: +502 5749-4629</p>
@@ -149,7 +149,7 @@ export default function TerminosPage() {
 
       <footer className="border-t border-slate-100 bg-slate-50 px-6 py-8 sm:px-10 mt-16">
         <div className="mx-auto max-w-4xl flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
-          <span className="text-sm font-semibold text-slate-950">ArquiPlanos</span>
+          <span className="text-sm font-semibold text-slate-950">Habitio Design</span>
           <div className="flex gap-6 text-xs text-slate-500">
             <Link href="/terminos" className="hover:text-slate-800 transition font-medium text-slate-700">Términos de Servicio</Link>
             <Link href="/privacidad" className="hover:text-slate-800 transition">Política de Privacidad</Link>

@@ -172,7 +172,7 @@ export default async function Home() {
             Lo que dicen nuestros clientes
           </h2>
           <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-            Conoce las experiencias de quienes ya confiaron en ArquiPlanos para construir proyectos excepcionales.
+            Conoce las experiencias de quienes ya confiaron en Habitio Design para construir proyectos excepcionales.
           </p>
         </div>
 
@@ -193,7 +193,7 @@ export default async function Home() {
               ))}
             </div>
             <p className="mt-6 text-sm leading-7 text-slate-600">
-              "Los planos de ArquiPlanos son excepcionales. La calidad del diseño y la precisión técnica me han ahorrado semanas de trabajo. Mis clientes quedan encantados con los resultados finales."
+              "Los planos de Habitio Design son excepcionales. La calidad del diseño y la precisión técnica me han ahorrado semanas de trabajo. Mis clientes quedan encantados con los resultados finales."
             </p>
           </article>
 
@@ -251,7 +251,7 @@ export default async function Home() {
       <footer className="mx-auto w-full max-w-7xl px-6 pb-16 pt-14 text-slate-700 sm:px-10">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold text-slate-950">ArquiPlanos</h3>
+            <h3 className="text-2xl font-semibold text-slate-950">Habitio Design</h3>
             <p className="max-w-sm text-sm leading-7 text-slate-600">
               Diseños arquitectónicos modernos y funcionales para construir la casa de tus sueños.
             </p>
@@ -277,7 +277,7 @@ export default async function Home() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 ArquiPlanos. Todos los derechos reservados.</p>
+          <p>© 2026 Habitio Design. Todos los derechos reservados.</p>
           <p>Diseños arquitectónicos de calidad para todo el mundo.</p>
         </div>
       </footer>
