@@ -71,13 +71,6 @@ export default async function Home() {
           </div>
         </div>
       </main>
-      <div className="relative z-10 pb-8">
-        <div className="mx-auto flex w-full max-w-7xl justify-center">
-          <div className="flex h-14 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-[10px] uppercase tracking-[0.3em] text-white/80">
-            Scroll
-          </div>
-        </div>
-      </div>
     </div>
 
       <section id="servicios" className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-16 text-slate-950 sm:px-10">
