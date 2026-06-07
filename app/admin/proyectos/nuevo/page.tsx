@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ImageIcon, Camera } from "lucide-react";
+import { ImageIcon, Camera, FileText } from "lucide-react";
 
 const CATEGORIES = ["Moderna", "Mediterránea", "Industrial", "Sustentable", "Montaña", "Playa"];
 
@@ -49,8 +49,11 @@ export default function NuevoProyectoPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+
   const coverInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
 
   function handleCover(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -108,6 +111,15 @@ export default function NuevoProyectoPage() {
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error ?? "Error al guardar");
+      }
+
+      const { _id } = await res.json();
+
+      // Subir PDF si fue seleccionado
+      if (pdfFile && _id) {
+        const fd = new FormData();
+        fd.append("pdf", pdfFile);
+        await fetch(`/api/projects/${_id}/pdf`, { method: "POST", body: fd });
       }
 
       router.push("/admin");
@@ -272,6 +284,7 @@ export default function NuevoProyectoPage() {
                   onChange={(e) => setCurrency(e.target.value)}
                   className="w-24 rounded-2xl border border-slate-200 bg-white px-3 py-3 text-sm text-slate-950 focus:border-slate-950 focus:outline-none"
                 >
+                  <option value="GTQ">GTQ</option>
                   <option value="USD">USD</option>
                   <option value="MXN">MXN</option>
                   <option value="EUR">EUR</option>
@@ -292,6 +305,35 @@ export default function NuevoProyectoPage() {
               />
               <p className="mt-1.5 text-xs text-slate-500">Separa cada característica con una coma</p>
             </div>
+          </div>
+
+          {/* PDF de planos */}
+          <div className="space-y-3">
+            <label className="block text-sm font-semibold text-slate-950">
+              PDF de planos
+              <span className="ml-1 text-xs font-normal text-slate-500">(se enviará al comprador automáticamente)</span>
+            </label>
+            {pdfFile ? (
+              <div className="flex items-center justify-between rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <FileText className="h-5 w-5 text-green-600" />
+                  <span className="text-sm font-medium text-green-800">{pdfFile.name}</span>
+                  <span className="text-xs text-green-600">({(pdfFile.size / 1024 / 1024).toFixed(1)} MB)</span>
+                </div>
+                <button type="button" onClick={() => setPdfFile(null)} className="text-xs text-red-500 hover:text-red-700">Quitar</button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => pdfInputRef.current?.click()}
+                className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
+              >
+                <FileText className="h-6 w-6 text-slate-400" />
+                <span>Seleccionar PDF de planos</span>
+                <span className="text-xs text-slate-400">Solo archivos .pdf</span>
+              </button>
+            )}
+            <input ref={pdfInputRef} type="file" accept="application/pdf" className="hidden" onChange={(e) => setPdfFile(e.target.files?.[0] ?? null)} />
           </div>
 
           {error && (

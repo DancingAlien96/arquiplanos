@@ -10,6 +10,7 @@ export interface IProject {
   features: string[];
   coverImage: string;   // imagen de portada (base64 data URL)
   images: string[];     // imágenes del carrusel (base64 data URLs)
+  pdfPath?: string;     // nombre del archivo PDF en uploads/pdfs/
   createdAt?: Date;
 }
 
@@ -23,6 +24,7 @@ const ProjectSchema = new Schema<IProject>(
     features: { type: [String], default: [] },
     coverImage: { type: String, default: "" },
     images: { type: [String], default: [] },
+    pdfPath: { type: String, default: "" },
   },
   { timestamps: true }
 );

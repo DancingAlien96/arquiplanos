@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
+import Order from "@/lib/models/Order";
 
 const RECURRENTE_BASE = "https://app.recurrente.com/api";
 
@@ -84,6 +85,13 @@ export async function POST(req: NextRequest) {
     if (!checkoutUrl) {
       return NextResponse.json({ error: "No se obtuvo checkout_url de Recurrente" }, { status: 500 });
     }
+
+    // Guardar Order pendiente para vincularlo con el webhook de pago
+    await Order.create({
+      checkoutId: checkoutData.id,
+      projectId,
+      status: "pending",
+    });
 
     return NextResponse.json({ url: checkoutUrl });
   } catch (error) {
