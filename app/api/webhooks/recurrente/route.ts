@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Webhook } from "svix";
 import { Resend } from "resend";
 import { readFile } from "fs/promises";
 import path from "path";
@@ -9,16 +10,34 @@ import Project from "@/lib/models/Project";
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function POST(req: NextRequest) {
-  try {
-    const payload = await req.json();
+  // Verificar firma Svix antes de procesar cualquier dato
+  const webhookSecret = process.env.RECURRENTE_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    console.error("RECURRENTE_WEBHOOK_SECRET no configurado");
+    return NextResponse.json({ error: "Configuración incorrecta" }, { status: 500 });
+  }
 
-    // Recurrente envía eventos tipo "checkout.succeeded" o similar
-    const eventType: string = payload?.type ?? payload?.event ?? "";
-    const checkoutId: string =
-      payload?.data?.id ??
-      payload?.data?.object?.id ??
-      payload?.checkout_id ??
-      "";
+  const rawBody = await req.text();
+  const svixId = req.headers.get("webhook-id") ?? "";
+  const svixTimestamp = req.headers.get("webhook-timestamp") ?? "";
+  const svixSignature = req.headers.get("webhook-signature") ?? "";
+
+  let payload: Record<string, unknown>;
+  try {
+    const wh = new Webhook(webhookSecret);
+    payload = wh.verify(rawBody, {
+      "webhook-id": svixId,
+      "webhook-timestamp": svixTimestamp,
+      "webhook-signature": svixSignature,
+    }) as Record<string, unknown>;
+  } catch {
+    return NextResponse.json({ error: "Firma inválida" }, { status: 401 });
+  }
+
+  try {
+    const eventType: string = (payload?.type ?? payload?.event ?? "") as string;
+    const data = payload?.data as Record<string, unknown> | undefined;
+    const checkoutId: string = (data?.id ?? data?.object?.toString() ?? "") as string;
 
     if (!checkoutId) {
       return NextResponse.json({ error: "checkoutId no encontrado en payload" }, { status: 400 });
@@ -43,19 +62,16 @@ export async function POST(req: NextRequest) {
     }
 
     if (order.status === "paid") {
-      // Ya procesado, responder OK para evitar reenvíos de Svix
       return NextResponse.json({ ok: true, alreadyProcessed: true });
     }
 
-    // Obtener email del comprador del payload de Recurrente
+    // Usar el email guardado en la orden en lugar del del payload,
+    // para que un payload forjado no redirija el PDF a otro destinatario.
+    // Si aún no hay email en la orden, tomarlo del payload verificado.
     const buyerEmail: string =
-      payload?.data?.customer_email ??
-      payload?.data?.object?.customer_email ??
-      payload?.customer_email ??
-      order.buyerEmail ??
-      "";
+      order.buyerEmail ||
+      ((data?.customer_email ?? "") as string);
 
-    // Obtener proyecto y su PDF
     const project = await Project.findById(order.projectId).lean() as {
       name: string;
       pdfPath?: string;
@@ -66,21 +82,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Proyecto no encontrado" }, { status: 404 });
     }
 
-    // Marcar como pagado
     await Order.findByIdAndUpdate(order._id, { status: "paid", buyerEmail });
 
-    // Enviar email con PDF adjunto si existe
     if (buyerEmail && project.pdfPath) {
-      const pdfFilePath = path.join(process.cwd(), "uploads", "pdfs", project.pdfPath);
-      let pdfBuffer: Buffer | undefined;
+      const uploadsDir = path.resolve(process.cwd(), "uploads", "pdfs");
+      const pdfFilePath = path.resolve(uploadsDir, project.pdfPath);
 
+      // Prevenir path traversal: el archivo debe estar dentro de uploadsDir
+      if (!pdfFilePath.startsWith(uploadsDir + path.sep)) {
+        console.error("Ruta de PDF fuera de bounds:", pdfFilePath);
+        return NextResponse.json({ error: "Ruta inválida" }, { status: 500 });
+      }
+
+      let pdfBuffer: Buffer | undefined;
       try {
         pdfBuffer = await readFile(pdfFilePath);
       } catch {
         console.error("PDF no encontrado en disco:", pdfFilePath);
       }
 
-      if (pdfBuffer) {
+      if (pdfBuffer && pdfBuffer.slice(0, 5).toString() === "%PDF-") {
         await resend.emails.send({
           from: process.env.FROM_EMAIL!,
           to: buyerEmail,
