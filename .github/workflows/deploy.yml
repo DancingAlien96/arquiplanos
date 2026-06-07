@@ -1,0 +1,41 @@
+name: Deploy a producción
+
+# Cada push a master despliega automáticamente en el servidor.
+# También se puede lanzar a mano desde la pestaña Actions (workflow_dispatch).
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Evita que dos despliegues corran a la vez (se encolan, no se pisan).
+concurrency:
+  group: deploy-produccion
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Desplegar por SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Falla el job si cualquier comando falla.
+          script_stop: true
+          command_timeout: 15m
+          script: |
+            set -e
+            cd /root/arquiplanos
+            echo "→ Trayendo últimos cambios de master..."
+            git fetch --prune origin
+            git reset --hard origin/master
+            echo "→ Instalando dependencias..."
+            npm ci
+            echo "→ Compilando build de producción..."
+            npm run build
+            echo "→ Reiniciando la app en PM2..."
+            pm2 restart arquiplanos --update-env
+            pm2 save
+            echo "✅ Deploy completado."
