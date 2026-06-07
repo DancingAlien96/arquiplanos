@@ -103,7 +103,7 @@ export default function TerminosPage() {
               <li>Si el producto adquirido no corresponde a lo descrito en la ficha del proyecto, gestionaremos un reembolso o cambio dentro de los 7 días naturales siguientes a la compra.</li>
             </ul>
             <p>
-              Para iniciar una solicitud de soporte o reembolso, contáctenos en <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a>.
+              Para iniciar una solicitud de soporte o reembolso, contáctenos en <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a>.
             </p>
           </section>
 
@@ -139,7 +139,7 @@ export default function TerminosPage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
               <p><strong>ArquiPlanos</strong></p>
               <p>Guatemala</p>
-              <p>Email: <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a></p>
+              <p>Email: <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a></p>
               <p>Teléfono: +502 5749-4629</p>
             </div>
           </section>

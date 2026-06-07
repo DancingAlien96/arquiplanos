@@ -36,7 +36,7 @@ export default function PrivacidadPage() {
               ArquiPlanos, con domicilio en Guatemala, es el responsable del tratamiento de sus datos personales recopilados a través de este sitio web y del proceso de compra de planos arquitectónicos digitales.
             </p>
             <p>
-              Para cualquier consulta relacionada con esta política, puede contactarnos en <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a>.
+              Para cualquier consulta relacionada con esta política, puede contactarnos en <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a>.
             </p>
           </section>
 
@@ -109,7 +109,7 @@ export default function PrivacidadPage() {
               <li><strong>Limitación:</strong> solicitar la suspensión del tratamiento en determinadas circunstancias.</li>
             </ul>
             <p>
-              Para ejercer cualquiera de estos derechos, envíe su solicitud a <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a> indicando su nombre completo y el derecho que desea ejercer. Responderemos en un plazo máximo de 20 días hábiles.
+              Para ejercer cualquiera de estos derechos, envíe su solicitud a <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a> indicando su nombre completo y el derecho que desea ejercer. Responderemos en un plazo máximo de 20 días hábiles.
             </p>
           </section>
 
@@ -149,7 +149,7 @@ export default function PrivacidadPage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-1">
               <p><strong>ArquiPlanos</strong></p>
               <p>Guatemala</p>
-              <p>Email: <a href="mailto:hola@arquiplanos.com" className="text-amber-700 hover:underline">hola@arquiplanos.com</a></p>
+              <p>Email: <a href="mailto:designhabitio@gmail.com" className="text-amber-700 hover:underline">designhabitio@gmail.com</a></p>
               <p>Teléfono: +502 5749-4629</p>
             </div>
           </section>
