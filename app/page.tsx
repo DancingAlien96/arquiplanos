@@ -41,31 +41,12 @@ export default async function Home() {
               Planos arquitectónicos modernos listos para construir. Diseños funcionales,
               elegantes y adaptados a tu estilo de vida.
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-              <a
-                href="#galeria"
-                className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-white/90 sm:px-6 sm:py-3"
-              >
-                Explorar Colección
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-              <a
-                href="#servicios"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20 sm:px-6 sm:py-3"
-              >
-                Conocer Servicios
-              </a>
-            </div>
           </div>
 
-          <div className="mt-8 grid grid-cols-3 gap-2 text-center sm:mt-14 sm:gap-4">
+          <div className="mt-8 grid grid-cols-2 gap-2 text-center sm:mt-14 sm:gap-4">
             <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
               <div className="text-xl font-semibold text-white sm:text-3xl">200+</div>
               <div className="mt-1 text-xs text-white/70 sm:mt-2 sm:text-sm">Planos Vendidos</div>
-            </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
-              <div className="text-xl font-semibold text-white sm:text-3xl">50+</div>
-              <div className="mt-1 text-xs text-white/70 sm:mt-2 sm:text-sm">Diseños Únicos</div>
             </div>
             <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
               <div className="text-xl font-semibold text-white sm:text-3xl">98%</div>
