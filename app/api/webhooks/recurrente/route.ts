@@ -18,17 +18,22 @@ export async function POST(req: NextRequest) {
   }
 
   const rawBody = await req.text();
-  const svixId = req.headers.get("webhook-id") ?? "";
-  const svixTimestamp = req.headers.get("webhook-timestamp") ?? "";
-  const svixSignature = req.headers.get("webhook-signature") ?? "";
+  // Svix puede enviar svix-* o webhook-* según la versión; aceptamos ambos
+  const msgId = req.headers.get("svix-id") ?? req.headers.get("webhook-id") ?? "";
+  const msgTimestamp = req.headers.get("svix-timestamp") ?? req.headers.get("webhook-timestamp") ?? "";
+  const msgSignature = req.headers.get("svix-signature") ?? req.headers.get("webhook-signature") ?? "";
+
+  if (!msgId || !msgTimestamp || !msgSignature) {
+    return NextResponse.json({ error: "Faltan headers de firma" }, { status: 401 });
+  }
 
   let payload: Record<string, unknown>;
   try {
     const wh = new Webhook(webhookSecret);
     payload = wh.verify(rawBody, {
-      "webhook-id": svixId,
-      "webhook-timestamp": svixTimestamp,
-      "webhook-signature": svixSignature,
+      "webhook-id": msgId,
+      "webhook-timestamp": msgTimestamp,
+      "webhook-signature": msgSignature,
     }) as Record<string, unknown>;
   } catch {
     return NextResponse.json({ error: "Firma inválida" }, { status: 401 });
