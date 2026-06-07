@@ -24,7 +24,7 @@ export default async function Home() {
           loop
           playsInline
           poster="/fondo1.png"
-          className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
+          className="absolute inset-0 h-full w-full object-cover object-center sm:object-[center_20%]"
         >
           <source src="/hero.mp4" type="video/mp4" />
         </video>
@@ -32,47 +32,47 @@ export default async function Home() {
 
         <Header />
 
-        <main className="relative z-10 mx-auto flex min-h-[calc(100vh-96px)] max-w-7xl flex-col justify-center px-6 py-16 sm:px-10">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">
-            Diseña la <span className="italic text-amber-100">Casa</span> de tus Sueños
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-8 text-white/80 sm:text-lg">
-            Planos arquitectónicos modernos listos para construir. Diseños funcionales,
-            elegantes y adaptados a tu estilo de vida.
-          </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-white/90"
-            >
-              Explorar Colección
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
-            >
-              Conocer Servicios
-            </a>
+        <main className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] max-w-7xl flex-col justify-center px-5 py-12 sm:px-10 sm:py-16">
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
+              Diseña la <span className="italic text-amber-100">Casa</span> de tus Sueños
+            </h1>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/80 sm:mt-6 sm:text-base sm:leading-8">
+              Planos arquitectónicos modernos listos para construir. Diseños funcionales,
+              elegantes y adaptados a tu estilo de vida.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
+              <a
+                href="#galeria"
+                className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-white/90 sm:px-6 sm:py-3"
+              >
+                Explorar Colección
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+              <a
+                href="#servicios"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20 sm:px-6 sm:py-3"
+              >
+                Conocer Servicios
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-14 grid gap-4 text-center text-sm sm:grid-cols-3">
-          <div className="rounded-3xl border border-white/15 bg-white/10 px-6 py-6 backdrop-blur-md">
-            <div className="text-3xl font-semibold text-white">200+</div>
-            <div className="mt-2 text-white/70">Planos Vendidos</div>
+          <div className="mt-8 grid grid-cols-3 gap-2 text-center sm:mt-14 sm:gap-4">
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
+              <div className="text-xl font-semibold text-white sm:text-3xl">200+</div>
+              <div className="mt-1 text-xs text-white/70 sm:mt-2 sm:text-sm">Planos Vendidos</div>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
+              <div className="text-xl font-semibold text-white sm:text-3xl">50+</div>
+              <div className="mt-1 text-xs text-white/70 sm:mt-2 sm:text-sm">Diseños Únicos</div>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-md sm:rounded-3xl sm:px-6 sm:py-6">
+              <div className="text-xl font-semibold text-white sm:text-3xl">98%</div>
+              <div className="mt-1 text-xs text-white/70 sm:mt-2 sm:text-sm">Clientes Felices</div>
+            </div>
           </div>
-          <div className="rounded-3xl border border-white/15 bg-white/10 px-6 py-6 backdrop-blur-md">
-            <div className="text-3xl font-semibold text-white">50+</div>
-            <div className="mt-2 text-white/70">Diseños Únicos</div>
-          </div>
-          <div className="rounded-3xl border border-white/15 bg-white/10 px-6 py-6 backdrop-blur-md">
-            <div className="text-3xl font-semibold text-white">98%</div>
-            <div className="mt-2 text-white/70">Clientes Felices</div>
-          </div>
-        </div>
-      </main>
+        </main>
     </div>
 
       <section id="servicios" className="relative z-10 mx-auto w-full max-w-7xl bg-white px-6 pb-20 pt-16 text-slate-950 sm:px-10">
