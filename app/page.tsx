@@ -1,4 +1,6 @@
-export const dynamic = "force-dynamic";
+// ISR: la página se sirve pre-renderizada (rápida como estática) y se
+// regenera en segundo plano cada 60s para reflejar cambios del admin.
+export const revalidate = 60;
 
 import Image from "next/image";
 import Header from "./components/Header";

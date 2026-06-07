@@ -3,7 +3,9 @@ import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
 import ProjectDetailClient from "./ProjectDetailClient";
 
-export const dynamic = "force-dynamic";
+// ISR: cada ficha de proyecto se cachea como HTML y se regenera cada 60s.
+// dynamicParams (true por defecto) permite servir IDs nuevos bajo demanda.
+export const revalidate = 60;
 
 type Props = { params: Promise<{ id: string }> };
 
