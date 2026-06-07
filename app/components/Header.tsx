@@ -44,7 +44,7 @@ export default function Header() {
         </nav>
 
         <a
-          href="#"
+          href="#galeria"
           className="hidden rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/20 md:inline-flex"
         >
           Ver Planos
@@ -62,7 +62,7 @@ export default function Header() {
           </a>
         ))}
         <a
-          href="#"
+          href="#galeria"
           className="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/20"
         >
           Ver Planos

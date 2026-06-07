@@ -21,10 +21,10 @@ export default function GallerySection({ projects }: { projects: IProject[] }) {
         <div className="max-w-xl">
           <p className="text-sm uppercase tracking-[0.28em] text-amber-700/90">Galería</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-            Galería de Proyectos
+            Galería de Planos
           </h2>
           <p className="mt-4 max-w-lg text-sm leading-7 text-slate-600 sm:text-base">
-            Explora nuestra colección de diseños arquitectónicos modernos y funcionales.
+            Explora nuestra colección de planos arquitectónicos modernos y funcionales.
           </p>
         </div>
         <a
