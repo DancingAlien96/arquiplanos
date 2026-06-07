@@ -18,14 +18,16 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-950">
       <div id="inicio" className="relative w-full overflow-hidden bg-black text-white">
-        <Image
-          src="/fondo1.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_20%]"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/fondo1.png"
+          className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/55" />
 
         <Header />
