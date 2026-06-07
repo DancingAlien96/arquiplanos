@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-white text-slate-950">
-      <div id="inicio" className="relative overflow-hidden bg-black text-white">
+      <div id="inicio" className="relative w-full overflow-hidden bg-black text-white">
         <Image
           src="/fondo1.png"
           alt=""
@@ -242,7 +242,7 @@ export default async function Home() {
                     src="/fondo1.png"
                     alt="Cliente satisfecho"
                     fill
-                    sizes="100vw"
+                    sizes="(min-width: 1024px) 45vw, 100vw"
                     className="object-cover"
                   />
                 </div>
