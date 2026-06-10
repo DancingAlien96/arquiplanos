@@ -3,13 +3,22 @@ export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { connectDB } from "@/lib/mongodb";
 import Project from "@/lib/models/Project";
+import Order from "@/lib/models/Order";
 import AdminProjectList from "./components/AdminProjectList";
 import LogoutButton from "./components/LogoutButton";
+import OrdersList from "./components/OrdersList";
 
 export default async function AdminPage() {
   await connectDB();
   const projectDocs = await Project.find().sort({ createdAt: -1 }).lean();
   const projects = JSON.parse(JSON.stringify(projectDocs));
+
+  const orderDocs = await Order.find().sort({ createdAt: -1 }).limit(50).lean();
+  const projectMap = Object.fromEntries(projectDocs.map((p) => [String(p._id), p.name]));
+  const orders = JSON.parse(JSON.stringify(orderDocs)).map((o: {_id: string; projectId: string; buyerEmail: string; status: string; createdAt: string}) => ({
+    ...o,
+    projectName: projectMap[o.projectId] ?? "Proyecto eliminado",
+  }));
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -43,6 +52,14 @@ export default async function AdminPage() {
         </div>
 
         <AdminProjectList projects={projects} />
+
+        <div className="mt-14">
+          <h2 className="mb-4 text-lg font-semibold text-slate-950">
+            Órdenes recientes
+            <span className="ml-2 text-sm font-normal text-slate-500">({orders.length})</span>
+          </h2>
+          <OrdersList orders={orders} />
+        </div>
       </main>
     </div>
   );
