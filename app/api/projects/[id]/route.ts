@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   if (!project) return Response.json({ error: "No encontrado" }, { status: 404 });
 
   const body = await req.json();
-  const { name, description, category, price, currency, features, coverImage, images } = body;
+  const { name, description, category, price, currency, features, floors, bedrooms, size, coverImage, images } = body;
 
   if (name !== undefined) project.name = name;
   if (description !== undefined) project.description = description;
@@ -33,6 +33,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
     project.features = typeof features === "string"
       ? features.split(",").map((f: string) => f.trim()).filter(Boolean)
       : features;
+  if (floors !== undefined) project.floors = floors;
+  if (bedrooms !== undefined) project.bedrooms = bedrooms;
+  if (size !== undefined) project.size = size;
   if (coverImage !== undefined) project.coverImage = coverImage;
   if (images !== undefined) project.images = images;
 

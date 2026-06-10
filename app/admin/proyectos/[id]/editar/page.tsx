@@ -38,6 +38,9 @@ export default function EditarProyectoPage() {
   const [price, setPrice] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [features, setFeatures] = useState("");
+  const [floors, setFloors] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [size, setSize] = useState("");
 
   // Portada: puede ser la existente (string base64) o un archivo nuevo
   const [existingCover, setExistingCover] = useState<string>("");
@@ -70,6 +73,9 @@ export default function EditarProyectoPage() {
         setPrice(String(data.price ?? ""));
         setCurrency(data.currency ?? "USD");
         setFeatures(Array.isArray(data.features) ? data.features.join(", ") : (data.features ?? ""));
+        setFloors(data.floors ?? "");
+        setBedrooms(data.bedrooms ?? "");
+        setSize(data.size ?? "");
         setExistingCover(data.coverImage ?? "");
         setExistingGallery(data.images ?? []);
         // Combina pdfPaths (nuevo) con pdfPath legacy si existe
@@ -146,6 +152,9 @@ export default function EditarProyectoPage() {
           price: Number(price),
           currency,
           features,
+          floors,
+          bedrooms,
+          size,
           coverImage,
           images,
         }),
@@ -377,6 +386,41 @@ export default function EditarProyectoPage() {
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:border-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950/10"
               />
               <p className="mt-1.5 text-xs text-slate-500">Separa cada característica con una coma</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-950 mb-2">Número de pisos</label>
+              <select value={floors} onChange={(e) => setFloors(e.target.value)}
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950/10">
+                <option value="">Sin especificar</option>
+                <option value="1 piso">1 piso</option>
+                <option value="2 pisos">2 pisos</option>
+                <option value="3+ pisos">3+ pisos</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-950 mb-2">Dormitorios</label>
+              <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950/10">
+                <option value="">Sin especificar</option>
+                <option value="1">1 dormitorio</option>
+                <option value="2">2 dormitorios</option>
+                <option value="3">3 dormitorios</option>
+                <option value="4+">4+ dormitorios</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-950 mb-2">Tamaño</label>
+              <select value={size} onChange={(e) => setSize(e.target.value)}
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 focus:outline-none focus:ring-2 focus:ring-slate-950/10">
+                <option value="">Sin especificar</option>
+                <option value="Pequeño">Pequeño (hasta 100m²)</option>
+                <option value="Mediano">Mediano (100–200m²)</option>
+                <option value="Grande">Grande (200–350m²)</option>
+                <option value="Muy grande">Muy grande (350m²+)</option>
+              </select>
             </div>
           </div>
 

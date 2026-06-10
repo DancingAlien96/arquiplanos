@@ -20,6 +20,9 @@ export async function POST(request: NextRequest) {
     price?: number;
     currency?: string;
     features?: string;
+    floors?: string;
+    bedrooms?: string;
+    size?: string;
     coverImage?: string;
     images?: string[];
   };
@@ -30,7 +33,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Solicitud inválida" }, { status: 400 });
   }
 
-  const { name, description, category, price, currency, features, coverImage, images } = body;
+  const { name, description, category, price, currency, features, floors, bedrooms, size, coverImage, images } = body;
 
   if (!name?.trim() || !description?.trim() || !category?.trim() || price == null || isNaN(price)) {
     return Response.json({ error: "Faltan campos requeridos" }, { status: 400 });
@@ -47,6 +50,9 @@ export async function POST(request: NextRequest) {
     price,
     currency: currency ?? "USD",
     features: featuresList,
+    floors: floors ?? "",
+    bedrooms: bedrooms ?? "",
+    size: size ?? "",
     coverImage: coverImage ?? "",
     images: images ?? [],
   });

@@ -10,8 +10,11 @@ export interface IProject {
   features: string[];
   coverImage: string;
   images: string[];
-  pdfPath?: string;    // legacy — un solo PDF
-  pdfPaths?: string[]; // múltiples PDFs en uploads/pdfs/
+  floors?: string;     // "1 piso" | "2 pisos" | "3+ pisos"
+  bedrooms?: string;   // "1" | "2" | "3" | "4+"
+  size?: string;       // "Pequeño" | "Mediano" | "Grande" | "Muy grande"
+  pdfPath?: string;
+  pdfPaths?: string[];
   createdAt?: Date;
 }
 
@@ -25,6 +28,9 @@ const ProjectSchema = new Schema<IProject>(
     features: { type: [String], default: [] },
     coverImage: { type: String, default: "" },
     images: { type: [String], default: [] },
+    floors: { type: String, default: "" },
+    bedrooms: { type: String, default: "" },
+    size: { type: String, default: "" },
     pdfPath: { type: String, default: "" },
     pdfPaths: { type: [String], default: [] },
   },
