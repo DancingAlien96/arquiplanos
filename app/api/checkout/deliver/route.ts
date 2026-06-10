@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { readFile } from "fs/promises";
-import path from "path";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/lib/models/Order";
 import Project from "@/lib/models/Project";
+import { getPdfAttachments } from "@/lib/pdfAttachments";
 
 const RECURRENTE_BASE = "https://app.recurrente.com/api";
 
@@ -82,25 +81,18 @@ export async function POST(req: NextRequest) {
     const project = await Project.findById(order.projectId).lean() as {
       name: string;
       pdfPath?: string;
+      pdfPaths?: string[];
     } | null;
 
-    if (!project?.pdfPath) {
-      console.error("[deliver] Proyecto sin PDF:", order.projectId);
+    if (!project) {
+      return NextResponse.json({ error: "Proyecto no encontrado" }, { status: 404 });
+    }
+
+    const attachments = await getPdfAttachments(project);
+
+    if (!attachments.length) {
+      console.error("[deliver] Proyecto sin PDFs:", order.projectId);
       return NextResponse.json({ ok: true, warning: "Pago registrado, proyecto sin PDF" });
-    }
-
-    const uploadsDir = path.resolve(process.cwd(), "uploads", "pdfs");
-    const pdfFilePath = path.resolve(uploadsDir, project.pdfPath);
-
-    if (!pdfFilePath.startsWith(uploadsDir + path.sep)) {
-      return NextResponse.json({ error: "Ruta inválida" }, { status: 500 });
-    }
-
-    const pdfBuffer = await readFile(pdfFilePath).catch(() => null);
-
-    if (!pdfBuffer || pdfBuffer.subarray(0, 5).toString() !== "%PDF-") {
-      console.error("[deliver] PDF no disponible en disco:", pdfFilePath);
-      return NextResponse.json({ ok: true, warning: "Pago registrado, PDF no en disco" });
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -117,12 +109,7 @@ export async function POST(req: NextRequest) {
           <p style="color: #888; font-size: 12px;">Habitio Design — Guatemala</p>
         </div>
       `,
-      attachments: [
-        {
-          filename: `${project.name.replace(/\s+/g, "_")}_planos.pdf`,
-          content: pdfBuffer,
-        },
-      ],
+      attachments,
     });
 
     console.log("[deliver] Email enviado a:", buyerEmail);

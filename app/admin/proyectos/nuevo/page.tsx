@@ -49,7 +49,7 @@ export default function NuevoProyectoPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfFiles, setPdfFiles] = useState<File[]>([]);
 
   const coverInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -115,11 +115,13 @@ export default function NuevoProyectoPage() {
 
       const { _id } = await res.json();
 
-      // Subir PDF si fue seleccionado
-      if (pdfFile && _id) {
-        const fd = new FormData();
-        fd.append("pdf", pdfFile);
-        await fetch(`/api/projects/${_id}/pdf`, { method: "POST", body: fd });
+      // Subir todos los PDFs seleccionados
+      if (_id) {
+        for (const file of pdfFiles) {
+          const fd = new FormData();
+          fd.append("pdf", file);
+          await fetch(`/api/projects/${_id}/pdf`, { method: "POST", body: fd });
+        }
       }
 
       router.push("/admin");
@@ -307,33 +309,51 @@ export default function NuevoProyectoPage() {
             </div>
           </div>
 
-          {/* PDF de planos */}
+          {/* PDFs de planos */}
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-slate-950">
-              PDF de planos
-              <span className="ml-1 text-xs font-normal text-slate-500">(se enviará al comprador automáticamente)</span>
+              PDFs de planos
+              <span className="ml-1 text-xs font-normal text-slate-500">(se enviarán al comprador como adjuntos)</span>
             </label>
-            {pdfFile ? (
-              <div className="flex items-center justify-between rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <FileText className="h-5 w-5 text-green-600" />
-                  <span className="text-sm font-medium text-green-800">{pdfFile.name}</span>
-                  <span className="text-xs text-green-600">({(pdfFile.size / 1024 / 1024).toFixed(1)} MB)</span>
+
+            {pdfFiles.map((file, i) => (
+              <div key={i} className="flex items-center justify-between rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <FileText className="h-5 w-5 shrink-0 text-green-600" />
+                  <span className="truncate text-sm font-medium text-green-800">{file.name}</span>
+                  <span className="shrink-0 text-xs text-green-600">({(file.size / 1024 / 1024).toFixed(1)} MB)</span>
                 </div>
-                <button type="button" onClick={() => setPdfFile(null)} className="text-xs text-red-500 hover:text-red-700">Quitar</button>
+                <button
+                  type="button"
+                  onClick={() => setPdfFiles((prev) => prev.filter((_, j) => j !== i))}
+                  className="shrink-0 text-xs text-red-500 hover:text-red-700"
+                >
+                  Quitar
+                </button>
               </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => pdfInputRef.current?.click()}
-                className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
-              >
-                <FileText className="h-6 w-6 text-slate-400" />
-                <span>Seleccionar PDF de planos</span>
-                <span className="text-xs text-slate-400">Solo archivos .pdf</span>
-              </button>
-            )}
-            <input ref={pdfInputRef} type="file" accept="application/pdf" className="hidden" onChange={(e) => setPdfFile(e.target.files?.[0] ?? null)} />
+            ))}
+
+            <button
+              type="button"
+              onClick={() => pdfInputRef.current?.click()}
+              className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
+            >
+              <FileText className="h-6 w-6 text-slate-400" />
+              <span>{pdfFiles.length > 0 ? "Agregar otro PDF" : "Seleccionar PDF de planos"}</span>
+              <span className="text-xs text-slate-400">Puedes agregar varios PDFs</span>
+            </button>
+            <input
+              ref={pdfInputRef}
+              type="file"
+              accept="application/pdf"
+              multiple
+              className="hidden"
+              onChange={(e) => {
+                const files = Array.from(e.target.files ?? []);
+                setPdfFiles((prev) => [...prev, ...files]);
+                e.target.value = "";
+              }}
+            />
           </div>
 
           {error && (

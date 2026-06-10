@@ -49,8 +49,9 @@ export default function EditarProyectoPage() {
   const [newGalleryFiles, setNewGalleryFiles] = useState<File[]>([]);
   const [newGalleryPreviews, setNewGalleryPreviews] = useState<string[]>([]);
 
-  const [existingPdfPath, setExistingPdfPath] = useState<string>("");
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [existingPdfs, setExistingPdfs] = useState<string[]>([]);
+  const [newPdfFiles, setNewPdfFiles] = useState<File[]>([]);
+  const [deletingPdf, setDeletingPdf] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -71,7 +72,13 @@ export default function EditarProyectoPage() {
         setFeatures(Array.isArray(data.features) ? data.features.join(", ") : (data.features ?? ""));
         setExistingCover(data.coverImage ?? "");
         setExistingGallery(data.images ?? []);
-        setExistingPdfPath(data.pdfPath ?? "");
+        // Combina pdfPaths (nuevo) con pdfPath legacy si existe
+        const pdfs: string[] = data.pdfPaths?.length
+          ? data.pdfPaths
+          : data.pdfPath
+          ? [data.pdfPath]
+          : [];
+        setExistingPdfs(pdfs);
       })
       .catch(() => setError("No se pudo cargar el proyecto."))
       .finally(() => setLoadingData(false));
@@ -149,10 +156,10 @@ export default function EditarProyectoPage() {
         throw new Error(data.error ?? "Error al guardar");
       }
 
-      // Subir nuevo PDF si fue seleccionado
-      if (pdfFile) {
+      // Subir todos los nuevos PDFs seleccionados
+      for (const file of newPdfFiles) {
         const fd = new FormData();
-        fd.append("pdf", pdfFile);
+        fd.append("pdf", file);
         await fetch(`/api/projects/${id}/pdf`, { method: "POST", body: fd });
       }
 
@@ -373,42 +380,76 @@ export default function EditarProyectoPage() {
             </div>
           </div>
 
-          {/* PDF de planos */}
+          {/* PDFs de planos */}
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-slate-950">
-              PDF de planos
-              <span className="ml-1 text-xs font-normal text-slate-500">(se enviará al comprador automáticamente)</span>
+              PDFs de planos
+              <span className="ml-1 text-xs font-normal text-slate-500">(se enviarán al comprador como adjuntos)</span>
             </label>
-            {pdfFile ? (
-              <div className="flex items-center justify-between rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <FileText className="h-5 w-5 text-green-600" />
-                  <span className="text-sm font-medium text-green-800">{pdfFile.name}</span>
-                  <span className="text-xs text-green-600">({(pdfFile.size / 1024 / 1024).toFixed(1)} MB)</span>
+
+            {/* PDFs guardados en servidor */}
+            {existingPdfs.map((filename) => (
+              <div key={filename} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <FileText className="h-5 w-5 shrink-0 text-slate-500" />
+                  <span className="truncate text-sm text-slate-700">{filename}</span>
+                  <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">Guardado</span>
                 </div>
-                <button type="button" onClick={() => setPdfFile(null)} className="text-xs text-red-500 hover:text-red-700">Quitar</button>
+                <button
+                  type="button"
+                  disabled={deletingPdf === filename}
+                  onClick={async () => {
+                    setDeletingPdf(filename);
+                    await fetch(`/api/projects/${id}/pdf?filename=${encodeURIComponent(filename)}`, { method: "DELETE" });
+                    setExistingPdfs((prev) => prev.filter((f) => f !== filename));
+                    setDeletingPdf(null);
+                  }}
+                  className="shrink-0 text-xs text-red-500 hover:text-red-700 disabled:opacity-50"
+                >
+                  {deletingPdf === filename ? "Eliminando..." : "Eliminar"}
+                </button>
               </div>
-            ) : existingPdfPath ? (
-              <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <FileText className="h-5 w-5 text-slate-500" />
-                  <span className="text-sm text-slate-700">{existingPdfPath}</span>
-                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">Actual</span>
+            ))}
+
+            {/* Nuevos PDFs pendientes de subir */}
+            {newPdfFiles.map((file, i) => (
+              <div key={i} className="flex items-center justify-between rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <FileText className="h-5 w-5 shrink-0 text-green-600" />
+                  <span className="truncate text-sm font-medium text-green-800">{file.name}</span>
+                  <span className="shrink-0 text-xs text-green-600">({(file.size / 1024 / 1024).toFixed(1)} MB)</span>
                 </div>
-                <button type="button" onClick={() => pdfInputRef.current?.click()} className="text-xs text-blue-600 hover:text-blue-800">Reemplazar</button>
+                <button
+                  type="button"
+                  onClick={() => setNewPdfFiles((prev) => prev.filter((_, j) => j !== i))}
+                  className="shrink-0 text-xs text-red-500 hover:text-red-700"
+                >
+                  Quitar
+                </button>
               </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => pdfInputRef.current?.click()}
-                className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
-              >
-                <FileText className="h-6 w-6 text-slate-400" />
-                <span>Seleccionar PDF de planos</span>
-                <span className="text-xs text-slate-400">Solo archivos .pdf</span>
-              </button>
-            )}
-            <input ref={pdfInputRef} type="file" accept="application/pdf" className="hidden" onChange={(e) => setPdfFile(e.target.files?.[0] ?? null)} />
+            ))}
+
+            <button
+              type="button"
+              onClick={() => pdfInputRef.current?.click()}
+              className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-8 text-sm text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
+            >
+              <FileText className="h-6 w-6 text-slate-400" />
+              <span>Agregar PDF{existingPdfs.length + newPdfFiles.length > 0 ? " adicional" : " de planos"}</span>
+              <span className="text-xs text-slate-400">Puedes agregar varios PDFs</span>
+            </button>
+            <input
+              ref={pdfInputRef}
+              type="file"
+              accept="application/pdf"
+              multiple
+              className="hidden"
+              onChange={(e) => {
+                const files = Array.from(e.target.files ?? []);
+                setNewPdfFiles((prev) => [...prev, ...files]);
+                e.target.value = "";
+              }}
+            />
           </div>
 
           {error && (

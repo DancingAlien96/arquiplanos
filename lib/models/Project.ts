@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 export interface IProject {
   _id?: string;
@@ -8,9 +8,10 @@ export interface IProject {
   price: number;
   currency: string;
   features: string[];
-  coverImage: string;   // imagen de portada (base64 data URL)
-  images: string[];     // imágenes del carrusel (base64 data URLs)
-  pdfPath?: string;     // nombre del archivo PDF en uploads/pdfs/
+  coverImage: string;
+  images: string[];
+  pdfPath?: string;    // legacy — un solo PDF
+  pdfPaths?: string[]; // múltiples PDFs en uploads/pdfs/
   createdAt?: Date;
 }
 
@@ -25,6 +26,7 @@ const ProjectSchema = new Schema<IProject>(
     coverImage: { type: String, default: "" },
     images: { type: [String], default: [] },
     pdfPath: { type: String, default: "" },
+    pdfPaths: { type: [String], default: [] },
   },
   { timestamps: true }
 );

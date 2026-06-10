@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 import { Webhook } from "svix";
 import { Resend } from "resend";
-import { readFile } from "fs/promises";
-import path from "path";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/lib/models/Order";
 import Project from "@/lib/models/Project";
+import { getPdfAttachments } from "@/lib/pdfAttachments";
 
 const RECURRENTE_BASE = "https://app.recurrente.com/api";
 
@@ -166,31 +165,20 @@ export async function POST(req: NextRequest) {
     const project = await Project.findById(order.projectId).lean() as {
       name: string;
       pdfPath?: string;
+      pdfPaths?: string[];
     } | null;
 
     await Order.findByIdAndUpdate(order._id, { status: "paid", buyerEmail });
 
-    if (!buyerEmail || !project?.pdfPath) {
-      console.error("[webhook] Pago registrado pero sin email o PDF:", { buyerEmail, hasPdf: !!project?.pdfPath });
-      return NextResponse.json({ ok: true, warning: "Pago registrado, email o PDF no disponible" });
+    if (!buyerEmail || !project) {
+      console.error("[webhook] Pago registrado pero sin email o proyecto:", { buyerEmail, hasProject: !!project });
+      return NextResponse.json({ ok: true, warning: "Pago registrado, email o proyecto no disponible" });
     }
 
-    const uploadsDir = path.resolve(process.cwd(), "uploads", "pdfs");
-    const pdfFilePath = path.resolve(uploadsDir, project.pdfPath);
+    const attachments = await getPdfAttachments(project);
 
-    if (!pdfFilePath.startsWith(uploadsDir + path.sep)) {
-      return NextResponse.json({ error: "Ruta inválida" }, { status: 500 });
-    }
-
-    let pdfBuffer: Buffer | undefined;
-    try {
-      pdfBuffer = await readFile(pdfFilePath);
-    } catch {
-      console.error("[webhook] PDF no encontrado en disco:", pdfFilePath);
-    }
-
-    if (!pdfBuffer || pdfBuffer.subarray(0, 5).toString() !== "%PDF-") {
-      console.error("[webhook] PDF inválido o no encontrado");
+    if (!attachments.length) {
+      console.error("[webhook] Proyecto sin PDFs:", order.projectId);
       return NextResponse.json({ ok: true, warning: "Pago registrado, PDF no en disco" });
     }
 
@@ -208,12 +196,7 @@ export async function POST(req: NextRequest) {
           <p style="color: #888; font-size: 12px;">Habitio Design — Guatemala</p>
         </div>
       `,
-      attachments: [
-        {
-          filename: `${project.name.replace(/\s+/g, "_")}_planos.pdf`,
-          content: pdfBuffer,
-        },
-      ],
+      attachments,
     });
 
     console.log("[webhook] Email enviado a:", buyerEmail);

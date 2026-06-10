@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { readFile } from "fs/promises";
-import path from "path";
 import { cookies } from "next/headers";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/lib/models/Order";
 import Project from "@/lib/models/Project";
+import { getPdfAttachments } from "@/lib/pdfAttachments";
 
 export async function POST(req: NextRequest) {
   const cookieStore = await cookies();
@@ -26,20 +25,13 @@ export async function POST(req: NextRequest) {
   const project = await Project.findById(order.projectId).lean() as {
     name: string;
     pdfPath?: string;
+    pdfPaths?: string[];
   } | null;
 
-  if (!project?.pdfPath) return NextResponse.json({ error: "Proyecto sin PDF" }, { status: 404 });
+  if (!project) return NextResponse.json({ error: "Proyecto no encontrado" }, { status: 404 });
 
-  const uploadsDir = path.resolve(process.cwd(), "uploads", "pdfs");
-  const pdfFilePath = path.resolve(uploadsDir, project.pdfPath);
-  if (!pdfFilePath.startsWith(uploadsDir + path.sep)) {
-    return NextResponse.json({ error: "Ruta inválida" }, { status: 400 });
-  }
-
-  const pdfBuffer = await readFile(pdfFilePath).catch(() => null);
-  if (!pdfBuffer || pdfBuffer.slice(0, 5).toString() !== "%PDF-") {
-    return NextResponse.json({ error: "PDF no disponible en disco" }, { status: 404 });
-  }
+  const attachments = await getPdfAttachments(project);
+  if (!attachments.length) return NextResponse.json({ error: "Proyecto sin PDF en disco" }, { status: 404 });
 
   const resend = new Resend(process.env.RESEND_API_KEY!);
   await resend.emails.send({
@@ -55,12 +47,7 @@ export async function POST(req: NextRequest) {
         <p style="color: #888; font-size: 12px;">Habitio Design — Guatemala</p>
       </div>
     `,
-    attachments: [
-      {
-        filename: `${project.name.replace(/\s+/g, "_")}_planos.pdf`,
-        content: pdfBuffer,
-      },
-    ],
+    attachments,
   });
 
   await Order.findByIdAndUpdate(orderId, { status: "paid", buyerEmail: toEmail });
