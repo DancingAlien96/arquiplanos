@@ -17,15 +17,21 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
   const [activeImg, setActiveImg] = useState(allImages[0] ?? "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
 
   async function handleComprar() {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setError("Ingresa un correo electrónico válido para recibir tu PDF.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectId: project._id }),
+        body: JSON.stringify({ projectId: project._id, buyerEmail: trimmedEmail }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al procesar el pago");
@@ -169,6 +175,21 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
 
             {/* CTA */}
             <div className="flex flex-col gap-3">
+              <div className="space-y-1.5">
+                <label htmlFor="buyer-email" className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Tu correo electrónico
+                </label>
+                <input
+                  id="buyer-email"
+                  type="email"
+                  placeholder="nombre@correo.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-950/10 disabled:opacity-60"
+                />
+                <p className="text-xs text-slate-500">Aquí recibirás el PDF de tus planos después del pago.</p>
+              </div>
               {error && (
                 <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
               )}
@@ -180,7 +201,7 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
                 {loading ? (
                   <><Loader2 className="h-5 w-5 animate-spin" /> Procesando...</>
                 ) : (
-                  <><ShoppingCart className="h-5 w-5" /> Comprar Ahora · ${project.price.toLocaleString()} {project.currency}</>
+                  <><ShoppingCart className="h-5 w-5" /> Comprar Ahora · {currencySymbol(project.currency)}{project.price.toLocaleString()} {project.currency}</>
                 )}
               </button>
               <a

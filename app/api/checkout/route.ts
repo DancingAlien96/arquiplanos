@@ -7,7 +7,7 @@ const RECURRENTE_BASE = "https://app.recurrente.com/api";
 
 export async function POST(req: NextRequest) {
   try {
-    const { projectId } = await req.json();
+    const { projectId, buyerEmail } = await req.json();
 
     if (!projectId) {
       return NextResponse.json({ error: "projectId requerido" }, { status: 400 });
@@ -86,10 +86,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No se obtuvo checkout_url de Recurrente" }, { status: 500 });
     }
 
-    // Guardar Order pendiente para vincularlo con el webhook de pago
+    // Guardar Order con email del comprador para garantizar entrega del PDF
     await Order.create({
       checkoutId: checkoutData.id,
       projectId,
+      buyerEmail: buyerEmail ?? "",
       status: "pending",
     });
 

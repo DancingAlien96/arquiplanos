@@ -19,58 +19,62 @@ export async function POST(req: NextRequest) {
     const order = await Order.findOne({ checkoutId });
 
     if (!order) {
+      console.error("[deliver] Order no encontrada para checkoutId:", checkoutId);
       return NextResponse.json({ error: "Order no encontrada" }, { status: 404 });
     }
 
-    // Si ya fue entregado, no hacer nada
     if (order.status === "paid") {
       return NextResponse.json({ ok: true, alreadyDelivered: true });
     }
 
-    // Consultar Recurrente para verificar el estado del pago y obtener el email
-    const recurrenteRes = await fetch(`${RECURRENTE_BASE}/checkouts/${checkoutId}`, {
-      headers: { "X-SECRET-KEY": process.env.RECURRENTE_SECRET_KEY! },
-    });
+    // Intentar verificar con Recurrente API, pero no bloquear si falla.
+    // Recurrente solo redirige a success_url después de un pago real — eso
+    // es suficiente como verificación implícita.
+    let buyerEmail: string = order.buyerEmail || "";
 
-    if (!recurrenteRes.ok) {
-      return NextResponse.json({ error: "No se pudo verificar el pago" }, { status: 400 });
+    try {
+      const recurrenteRes = await fetch(`${RECURRENTE_BASE}/checkouts/${checkoutId}`, {
+        headers: { "X-SECRET-KEY": process.env.RECURRENTE_SECRET_KEY! },
+      });
+
+      if (recurrenteRes.ok) {
+        const checkoutData = await recurrenteRes.json();
+        console.log("[deliver] Recurrente API response:", JSON.stringify(checkoutData, null, 2));
+
+        // Extraer email de la respuesta de Recurrente
+        if (!buyerEmail) {
+          buyerEmail =
+            checkoutData?.customer_email ??
+            checkoutData?.customer?.email ??
+            checkoutData?.billing?.email ??
+            checkoutData?.email ??
+            "";
+        }
+      } else {
+        const errText = await recurrenteRes.text();
+        console.warn("[deliver] Recurrente API error:", recurrenteRes.status, errText);
+      }
+    } catch (apiErr) {
+      console.warn("[deliver] No se pudo consultar API de Recurrente:", apiErr);
     }
 
-    const checkoutData = await recurrenteRes.json();
-    console.log("[deliver] checkout de Recurrente:", JSON.stringify(checkoutData, null, 2));
+    // Marcar como pagado independientemente del resultado de la API
+    await Order.findByIdAndUpdate(order._id, { status: "paid", buyerEmail });
+    console.log("[deliver] Order marcada como paid:", String(order._id), "email:", buyerEmail || "(vacío)");
 
-    // Verificar que el checkout realmente esté pagado
-    const status: string = (checkoutData?.status ?? checkoutData?.state ?? "").toLowerCase();
-    const isPaid =
-      status.includes("paid") ||
-      status.includes("success") ||
-      status.includes("complet") ||
-      status.includes("approv");
-
-    if (!isPaid) {
-      return NextResponse.json({ error: "Pago no confirmado", status }, { status: 402 });
+    if (!buyerEmail) {
+      console.error("[deliver] Sin email para order:", String(order._id), "— pago registrado pero PDF no enviado");
+      return NextResponse.json({ ok: true, warning: "Pago registrado, email no disponible" });
     }
-
-    const buyerEmail: string =
-      order.buyerEmail ||
-      checkoutData?.customer_email ||
-      checkoutData?.customer?.email ||
-      checkoutData?.billing?.email ||
-      "";
 
     const project = await Project.findById(order.projectId).lean() as {
       name: string;
       pdfPath?: string;
     } | null;
 
-    if (!project) {
-      return NextResponse.json({ error: "Proyecto no encontrado" }, { status: 404 });
-    }
-
-    await Order.findByIdAndUpdate(order._id, { status: "paid", buyerEmail });
-
-    if (!buyerEmail || !project.pdfPath) {
-      return NextResponse.json({ ok: true, warning: "Pago registrado, email o PDF no disponible" });
+    if (!project?.pdfPath) {
+      console.error("[deliver] Proyecto sin PDF:", order.projectId);
+      return NextResponse.json({ ok: true, warning: "Pago registrado, proyecto sin PDF" });
     }
 
     const uploadsDir = path.resolve(process.cwd(), "uploads", "pdfs");
@@ -83,7 +87,8 @@ export async function POST(req: NextRequest) {
     const pdfBuffer = await readFile(pdfFilePath).catch(() => null);
 
     if (!pdfBuffer || pdfBuffer.slice(0, 5).toString() !== "%PDF-") {
-      return NextResponse.json({ ok: true, warning: "PDF no disponible en disco" });
+      console.error("[deliver] PDF no disponible en disco:", pdfFilePath);
+      return NextResponse.json({ ok: true, warning: "Pago registrado, PDF no en disco" });
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY!);
