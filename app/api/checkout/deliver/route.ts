@@ -27,43 +27,55 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, alreadyDelivered: true });
     }
 
-    // Intentar verificar con Recurrente API, pero no bloquear si falla.
-    // Recurrente solo redirige a success_url después de un pago real — eso
-    // es suficiente como verificación implícita.
-    let buyerEmail: string = order.buyerEmail || "";
+    // Verificar con la API de Recurrente antes de marcar como pagado o enviar PDF.
+    // No mutar la orden ni enviar nada si la verificación falla.
+    const recurrenteRes = await fetch(`${RECURRENTE_BASE}/checkouts/${checkoutId}`, {
+      headers: { "X-SECRET-KEY": process.env.RECURRENTE_SECRET_KEY! },
+    });
 
-    try {
-      const recurrenteRes = await fetch(`${RECURRENTE_BASE}/checkouts/${checkoutId}`, {
-        headers: { "X-SECRET-KEY": process.env.RECURRENTE_SECRET_KEY! },
-      });
-
-      if (recurrenteRes.ok) {
-        const checkoutData = await recurrenteRes.json();
-        console.log("[deliver] Recurrente API response:", JSON.stringify(checkoutData, null, 2));
-
-        // Extraer email de la respuesta de Recurrente
-        if (!buyerEmail) {
-          buyerEmail =
-            checkoutData?.customer_email ??
-            checkoutData?.customer?.email ??
-            checkoutData?.billing?.email ??
-            checkoutData?.email ??
-            "";
-        }
-      } else {
-        const errText = await recurrenteRes.text();
-        console.warn("[deliver] Recurrente API error:", recurrenteRes.status, errText);
-      }
-    } catch (apiErr) {
-      console.warn("[deliver] No se pudo consultar API de Recurrente:", apiErr);
+    if (!recurrenteRes.ok) {
+      const errText = await recurrenteRes.text();
+      console.error("[deliver] Recurrente API error:", recurrenteRes.status, errText);
+      return NextResponse.json({ error: "No se pudo verificar el pago" }, { status: 402 });
     }
 
-    // Marcar como pagado independientemente del resultado de la API
+    const checkoutData = await recurrenteRes.json();
+    console.log("[deliver] Recurrente response:", JSON.stringify(checkoutData, null, 2));
+
+    const status: string = (
+      checkoutData?.status ??
+      checkoutData?.state ??
+      checkoutData?.payment_status ??
+      ""
+    ).toString().toLowerCase();
+
+    const isPaid =
+      status.includes("paid") ||
+      status.includes("success") ||
+      status.includes("complet") ||
+      status.includes("approv") ||
+      status.includes("succeed");
+
+    if (!isPaid) {
+      console.warn("[deliver] Estado no confirmado:", status, "| respuesta completa:", JSON.stringify(checkoutData));
+      return NextResponse.json({ error: "Pago no confirmado", status }, { status: 402 });
+    }
+
+    // Email: solo desde la Order (guardado al crear el checkout) o desde la API de Recurrente.
+    // Nunca desde el cuerpo de la petición.
+    const buyerEmail: string =
+      order.buyerEmail ||
+      checkoutData?.customer_email ||
+      checkoutData?.customer?.email ||
+      checkoutData?.billing?.email ||
+      "";
+
+    // Marcar como pagado solo después de confirmación de la API
     await Order.findByIdAndUpdate(order._id, { status: "paid", buyerEmail });
     console.log("[deliver] Order marcada como paid:", String(order._id), "email:", buyerEmail || "(vacío)");
 
     if (!buyerEmail) {
-      console.error("[deliver] Sin email para order:", String(order._id), "— pago registrado pero PDF no enviado");
+      console.error("[deliver] Sin email para order:", String(order._id));
       return NextResponse.json({ ok: true, warning: "Pago registrado, email no disponible" });
     }
 
@@ -86,7 +98,7 @@ export async function POST(req: NextRequest) {
 
     const pdfBuffer = await readFile(pdfFilePath).catch(() => null);
 
-    if (!pdfBuffer || pdfBuffer.slice(0, 5).toString() !== "%PDF-") {
+    if (!pdfBuffer || pdfBuffer.subarray(0, 5).toString() !== "%PDF-") {
       console.error("[deliver] PDF no disponible en disco:", pdfFilePath);
       return NextResponse.json({ ok: true, warning: "Pago registrado, PDF no en disco" });
     }

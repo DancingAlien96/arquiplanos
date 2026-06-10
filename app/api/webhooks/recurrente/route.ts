@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 import { Webhook } from "svix";
 import { Resend } from "resend";
 import { readFile } from "fs/promises";
@@ -8,6 +9,14 @@ import Order from "@/lib/models/Order";
 import Project from "@/lib/models/Project";
 
 const RECURRENTE_BASE = "https://app.recurrente.com/api";
+
+function safeCompare(a: string, b: string): boolean {
+  try {
+    return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+  } catch {
+    return false;
+  }
+}
 
 async function fetchEmailFromRecurrente(checkoutId: string): Promise<string> {
   try {
@@ -30,6 +39,10 @@ async function fetchEmailFromRecurrente(checkoutId: string): Promise<string> {
 
 export async function POST(req: NextRequest) {
   const webhookSecret = process.env.RECURRENTE_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    console.error("[webhook] RECURRENTE_WEBHOOK_SECRET no configurado");
+    return NextResponse.json({ error: "Configuración incorrecta" }, { status: 500 });
+  }
 
   const rawBody = await req.text();
 
@@ -37,7 +50,6 @@ export async function POST(req: NextRequest) {
   const allHeaders: Record<string, string> = {};
   req.headers.forEach((v, k) => { allHeaders[k] = v; });
   console.log("[webhook] headers recibidos:", JSON.stringify(allHeaders, null, 2));
-  console.log("[webhook] body:", rawBody.slice(0, 500));
 
   let payload: Record<string, unknown>;
 
@@ -45,7 +57,7 @@ export async function POST(req: NextRequest) {
   const svixTs = req.headers.get("svix-timestamp") ?? req.headers.get("webhook-timestamp");
   const svixSig = req.headers.get("svix-signature") ?? req.headers.get("webhook-signature");
 
-  if (webhookSecret && svixId && svixTs && svixSig) {
+  if (svixId && svixTs && svixSig) {
     // Camino Svix: verificación criptográfica estricta
     try {
       const wh = new Webhook(webhookSecret);
@@ -60,24 +72,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Firma inválida" }, { status: 401 });
     }
   } else {
-    // Recurrente no usa Svix — intentar verificar con header simple
-    console.warn("[webhook] Sin headers Svix. Verificando con secret simple...");
-
+    // Sin headers Svix — verificar con secret simple (comparación timing-safe)
     const simpleSecret =
       req.headers.get("x-webhook-secret") ??
       req.headers.get("x-recurrente-secret") ??
       req.headers.get("x-secret-key") ??
-      req.headers.get("authorization")?.replace("Bearer ", "");
+      req.headers.get("authorization")?.replace("Bearer ", "") ??
+      "";
 
-    if (webhookSecret && simpleSecret && simpleSecret === webhookSecret) {
-      console.log("[webhook] Verificación simple OK");
-    } else if (webhookSecret) {
-      // No se pudo verificar — registrar pero procesar de todas formas en modo debug
-      console.warn("[webhook] No se pudo verificar firma. Headers recibidos:", JSON.stringify(allHeaders));
-      // Comentar la siguiente línea para aceptar todos los webhooks sin verificar (debug):
-      // return NextResponse.json({ error: "Firma no verificable" }, { status: 401 });
+    if (!simpleSecret || !safeCompare(simpleSecret, webhookSecret)) {
+      console.error("[webhook] Verificación fallida. Headers:", JSON.stringify(allHeaders));
+      return NextResponse.json({ error: "Firma no verificable" }, { status: 401 });
     }
 
+    console.log("[webhook] Verificación simple OK");
     try {
       payload = JSON.parse(rawBody);
     } catch {
@@ -100,10 +108,9 @@ export async function POST(req: NextRequest) {
       eventType.includes("paid") ||
       eventType.includes("complet") ||
       eventType.includes("approv") ||
-      eventType.includes("confirm") ||
-      eventType === ""; // algunos gateways envían el payload sin tipo en eventos de pago
+      eventType.includes("confirm");
 
-    if (!isPaid && eventType !== "") {
+    if (!isPaid) {
       console.log("[webhook] evento ignorado:", eventType);
       return NextResponse.json({ ok: true, skipped: true, eventType });
     }
@@ -182,7 +189,7 @@ export async function POST(req: NextRequest) {
       console.error("[webhook] PDF no encontrado en disco:", pdfFilePath);
     }
 
-    if (!pdfBuffer || pdfBuffer.slice(0, 5).toString() !== "%PDF-") {
+    if (!pdfBuffer || pdfBuffer.subarray(0, 5).toString() !== "%PDF-") {
       console.error("[webhook] PDF inválido o no encontrado");
       return NextResponse.json({ ok: true, warning: "Pago registrado, PDF no en disco" });
     }
