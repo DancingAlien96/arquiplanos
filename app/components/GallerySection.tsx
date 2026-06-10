@@ -7,6 +7,8 @@ import type { IProject } from "@/lib/models/Project";
 
 const CATEGORIES = ["Todos", "Moderna", "Mediterránea", "Industrial", "Sustentable", "Montaña", "Playa"];
 const INITIAL_COUNT = 6;
+const SYMBOLS: Record<string, string> = { GTQ: "Q", USD: "$", MXN: "$", EUR: "€" };
+const currencySymbol = (c: string) => SYMBOLS[c] ?? c + " ";
 
 export default function GallerySection({ projects }: { projects: IProject[] }) {
   const [activeCategory, setActiveCategory] = useState("Todos");
@@ -98,7 +100,7 @@ export default function GallerySection({ projects }: { projects: IProject[] }) {
                       <p className="text-sm text-slate-500">{project.category}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-semibold text-slate-950">${project.price.toLocaleString()}</p>
+                      <p className="text-lg font-semibold text-slate-950">{currencySymbol(project.currency)}{project.price.toLocaleString()}</p>
                       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{project.currency}</p>
                     </div>
                   </div>

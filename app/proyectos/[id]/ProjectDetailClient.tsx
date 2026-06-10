@@ -5,6 +5,9 @@ import { useState } from "react";
 import { ShoppingCart, Lock, Zap, Clock, Loader2 } from "lucide-react";
 import type { IProject } from "@/lib/models/Project";
 
+const SYMBOLS: Record<string, string> = { GTQ: "Q", USD: "$", MXN: "$", EUR: "€" };
+const currencySymbol = (c: string) => SYMBOLS[c] ?? c + " ";
+
 export default function ProjectDetailClient({ project }: { project: IProject }) {
   const allImages = [
     ...(project.coverImage ? [project.coverImage] : []),
@@ -157,7 +160,7 @@ export default function ProjectDetailClient({ project }: { project: IProject }) 
             {/* Price */}
             <div className="flex items-baseline gap-2">
               <span className="text-5xl font-semibold text-slate-950">
-                ${project.price.toLocaleString()}
+                {currencySymbol(project.currency)}{project.price.toLocaleString()}
               </span>
               <span className="text-sm font-semibold uppercase tracking-widest text-slate-500">
                 {project.currency}

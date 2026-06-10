@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { IProject } from "@/lib/models/Project";
 
+const SYMBOLS: Record<string, string> = { GTQ: "Q", USD: "$", MXN: "$", EUR: "€" };
+const currencySymbol = (c: string) => SYMBOLS[c] ?? c + " ";
+
 export default function AdminProjectList({ projects }: { projects: IProject[] }) {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -63,7 +66,7 @@ export default function AdminProjectList({ projects }: { projects: IProject[] })
           <div className="space-y-3 px-5 py-5">
             <div>
               <p className="font-semibold text-slate-950 leading-tight">{project.name}</p>
-              <p className="text-xs text-slate-500 mt-1">{project.category} · ${project.price.toLocaleString()} {project.currency}</p>
+              <p className="text-xs text-slate-500 mt-1">{project.category} · {currencySymbol(project.currency)}{project.price.toLocaleString()} {project.currency}</p>
             </div>
             <p className="text-xs text-slate-600 line-clamp-2">{project.description}</p>
             <div className="flex gap-2 pt-1">
