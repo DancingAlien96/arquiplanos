@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
           {
             amount_as_decimal: amountDecimal,
             currency,
+            charge_type: "single",
           },
         ],
       }),
