@@ -71,11 +71,11 @@ export async function POST(req: NextRequest) {
     let priceId: string | undefined = productData?.prices?.[0]?.id;
 
     if (!priceId) {
-      const priceRes = await fetch(`${RECURRENTE_BASE}/prices`, {
+      // prices es recurso anidado: POST /products/:id/prices
+      const priceRes = await fetch(`${RECURRENTE_BASE}/products/${productId}/prices`, {
         method: "POST",
         headers,
         body: JSON.stringify({
-          product_id: productId,
           amount_as_decimal: amountDecimal,
           currency,
           charge_type: "one_time",
