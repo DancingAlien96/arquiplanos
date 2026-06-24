@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       "Content-Type": "application/json",
     };
 
-    // Paso 1: crear producto en Recurrente
+    // Paso 1: crear producto con precio incluido (Recurrente exige prices al crear)
     const productRes = await fetch(`${RECURRENTE_BASE}/products`, {
       method: "POST",
       headers,
@@ -41,46 +41,29 @@ export async function POST(req: NextRequest) {
         description: project.description || project.name,
         success_url: `${baseUrl}/pago/exitoso`,
         cancel_url: `${baseUrl}/pago/cancelado`,
+        prices: [
+          {
+            amount_as_decimal: project.price.toString(),
+            currency: project.currency || "GTQ",
+            charge_type: "one_time",
+          },
+        ],
       }),
     });
 
     if (!productRes.ok) {
       const err = await productRes.text();
       console.error("[checkout] Recurrente product error:", productRes.status, err);
-      return NextResponse.json({ error: "Error creando producto en Recurrente", status: productRes.status, detail: err }, { status: 500 });
+      return NextResponse.json({ error: "Error creando producto en Recurrente", detail: err }, { status: 500 });
     }
 
     const productData = await productRes.json();
-    console.log("[checkout] Recurrente product:", productData.id);
 
-    if (!productData.id) {
-      return NextResponse.json({ error: "No se obtuvo product_id de Recurrente" }, { status: 500 });
-    }
-
-    // Paso 2: crear precio para ese producto
-    const priceRes = await fetch(`${RECURRENTE_BASE}/prices`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        product_id: productData.id,
-        amount_as_decimal: project.price.toString(),
-        currency: project.currency || "GTQ",
-        charge_type: "one_time",
-      }),
-    });
-
-    if (!priceRes.ok) {
-      const err = await priceRes.text();
-      console.error("[checkout] Recurrente price error:", err);
-      return NextResponse.json({ error: "Error creando precio en Recurrente" }, { status: 500 });
-    }
-
-    const priceData = await priceRes.json();
-    console.log("[checkout] Recurrente price:", priceData.id);
-
-    const priceId = priceData?.id;
+    // El price_id viene dentro de prices[0].id en la respuesta del producto
+    const priceId = productData?.prices?.[0]?.id;
 
     if (!priceId) {
+      console.error("[checkout] Sin price_id en respuesta:", JSON.stringify(productData));
       return NextResponse.json({ error: "No se obtuvo price_id de Recurrente" }, { status: 500 });
     }
 
