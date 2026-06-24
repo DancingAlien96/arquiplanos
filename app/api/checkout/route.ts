@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
 
     if (!productRes.ok) {
       const err = await productRes.text();
-      console.error("[checkout] Recurrente product error:", err);
-      return NextResponse.json({ error: "Error creando producto en Recurrente" }, { status: 500 });
+      console.error("[checkout] Recurrente product error:", productRes.status, err);
+      return NextResponse.json({ error: "Error creando producto en Recurrente", status: productRes.status, detail: err }, { status: 500 });
     }
 
     const productData = await productRes.json();
