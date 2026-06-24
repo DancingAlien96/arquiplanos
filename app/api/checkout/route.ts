@@ -48,7 +48,6 @@ export async function POST(req: NextRequest) {
           {
             amount_as_decimal: amountDecimal,
             currency,
-            charge_type: "one_time",
           },
         ],
       }),
@@ -61,39 +60,22 @@ export async function POST(req: NextRequest) {
     }
 
     const productData = await productRes.json();
+    console.log("[checkout] producto completo:", JSON.stringify(productData));
     const productId = productData?.id;
 
     if (!productId) {
       return NextResponse.json({ error: "No se obtuvo product_id de Recurrente" }, { status: 500 });
     }
 
-    // Paso 2: crear precio explícito (prices_attributes a veces se ignora)
+    // Paso 2: usar price_id de la respuesta del producto (vía prices_attributes)
     let priceId: string | undefined = productData?.prices?.[0]?.id;
 
     if (!priceId) {
-      // prices es recurso anidado: POST /products/:id/prices
-      const priceRes = await fetch(`${RECURRENTE_BASE}/products/${productId}/prices`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          amount_as_decimal: amountDecimal,
-          currency,
-          charge_type: "one_time",
-        }),
-      });
-
-      if (!priceRes.ok) {
-        const err = await priceRes.text();
-        console.error("[checkout] price error:", err);
-        return NextResponse.json({ error: "Error creando precio en Recurrente", detail: err }, { status: 500 });
-      }
-
-      const priceData = await priceRes.json();
-      priceId = priceData?.id;
-    }
-
-    if (!priceId) {
-      return NextResponse.json({ error: "No se obtuvo price_id de Recurrente" }, { status: 500 });
+      console.error("[checkout] prices vacío en respuesta:", JSON.stringify(productData));
+      return NextResponse.json({
+        error: "No se obtuvo price_id de Recurrente",
+        productoRespuesta: productData,
+      }, { status: 500 });
     }
 
     // Paso 3: crear checkout con el price_id
