@@ -27,81 +27,46 @@ export async function POST(req: NextRequest) {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const secretKey = process.env.RECURRENTE_SECRET_KEY!;
-    const headers = {
-      "X-SECRET-KEY": secretKey,
-      "Content-Type": "application/json",
-    };
 
+    // Recurrente: pago único directo, sin product/price step
+    // amount_in_cents = precio * 100
+    const amountInCents = Math.round(project.price * 100);
     const currency = project.currency || "GTQ";
-    const amountDecimal = project.price.toString();
 
-    // Paso 1: crear producto (prices_attributes satisface validación de Recurrente)
-    const productRes = await fetch(`${RECURRENTE_BASE}/products`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        name: project.name,
-        description: project.description || project.name,
-        success_url: `${baseUrl}/pago/exitoso`,
-        cancel_url: `${baseUrl}/pago/cancelado`,
-        prices_attributes: [
-          {
-            amount_as_decimal: amountDecimal,
-            currency,
-            charge_type: "single",
-          },
-        ],
-      }),
-    });
-
-    if (!productRes.ok) {
-      const err = await productRes.text();
-      console.error("[checkout] product error:", productRes.status, err);
-      return NextResponse.json({ error: "Error creando producto en Recurrente", detail: err }, { status: 500 });
-    }
-
-    const productData = await productRes.json();
-    console.log("[checkout] producto completo:", JSON.stringify(productData));
-    const productId = productData?.id;
-
-    if (!productId) {
-      return NextResponse.json({ error: "No se obtuvo product_id de Recurrente" }, { status: 500 });
-    }
-
-    // Paso 2: usar price_id de la respuesta del producto (vía prices_attributes)
-    let priceId: string | undefined = productData?.prices?.[0]?.id;
-
-    if (!priceId) {
-      console.error("[checkout] prices vacío en respuesta:", JSON.stringify(productData));
-      return NextResponse.json({
-        error: "No se obtuvo price_id de Recurrente",
-        productoRespuesta: productData,
-      }, { status: 500 });
-    }
-
-    // Paso 3: crear checkout con el price_id
     const checkoutRes = await fetch(`${RECURRENTE_BASE}/checkouts`, {
       method: "POST",
-      headers,
+      headers: {
+        "X-SECRET-KEY": secretKey,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        items: [{ price_id: priceId }],
+        items: [
+          {
+            name: project.name,
+            amount_in_cents: amountInCents,
+            currency,
+            quantity: 1,
+          },
+        ],
+        success_url: `${baseUrl}/pago/exitoso`,
+        cancel_url: `${baseUrl}/pago/cancelado`,
       }),
     });
 
     if (!checkoutRes.ok) {
       const err = await checkoutRes.text();
-      console.error("Recurrente checkout error:", err);
-      return NextResponse.json({ error: "Error creando checkout en Recurrente" }, { status: 500 });
+      console.error("[checkout] error:", checkoutRes.status, err);
+      return NextResponse.json({ error: "Error creando checkout en Recurrente", detail: err }, { status: 500 });
     }
 
     const checkoutData = await checkoutRes.json();
     const checkoutUrl = checkoutData?.checkout_url;
 
     if (!checkoutUrl) {
-      return NextResponse.json({ error: "No se obtuvo checkout_url de Recurrente" }, { status: 500 });
+      console.error("[checkout] sin checkout_url:", JSON.stringify(checkoutData));
+      return NextResponse.json({ error: "No se obtuvo checkout_url de Recurrente", detail: checkoutData }, { status: 500 });
     }
 
-    // Guardar Order con email del comprador para garantizar entrega del PDF
     await Order.create({
       checkoutId: checkoutData.id,
       projectId,
