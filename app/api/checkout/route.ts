@@ -58,10 +58,23 @@ export async function POST(req: NextRequest) {
     }
 
     const productData = await productRes.json();
-    const priceId = productData?.prices?.[0]?.id;
+    console.log("[checkout] Recurrente product response:", JSON.stringify(productData, null, 2));
+
+    // Recurrente puede devolver el price_id en distintas estructuras
+    const priceId =
+      productData?.prices?.[0]?.id ??
+      productData?.price_ids?.[0] ??
+      productData?.price_id ??
+      productData?.items?.[0]?.price_id ??
+      productData?.data?.prices?.[0]?.id ??
+      null;
 
     if (!priceId) {
-      return NextResponse.json({ error: "No se obtuvo price_id de Recurrente" }, { status: 500 });
+      console.error("[checkout] price_id no encontrado. Respuesta completa:", JSON.stringify(productData));
+      return NextResponse.json({
+        error: "No se obtuvo price_id de Recurrente",
+        debug: productData,
+      }, { status: 500 });
     }
 
     // Paso 2: crear checkout con el price_id
